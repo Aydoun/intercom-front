@@ -1,1 +1,1 @@
-# intercom-front
+# Intercom Frontend App
