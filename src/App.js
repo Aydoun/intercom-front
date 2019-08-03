@@ -1,12 +1,11 @@
 import React from 'react';
-import { Button } from 'antd';
+import Routes from './routes';
 import './App.css';
 
 function App() {
   return (
     <div >
-      <h1>Welcome To Intercom Frontend</h1>
-      <Button>This is an Antd Button</Button>
+      <Routes />
     </div>
   );
 }
