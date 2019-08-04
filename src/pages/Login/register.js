@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Layout, Form, Input, Icon, Button, Checkbox } from 'antd';
+import { Layout, Form, Input, Icon, Button } from 'antd';
 import { Link } from 'react-router-dom';
 import Header from '../../components/Header/AuthenticationHeader';
 import Footer from '../../components/Footer';
@@ -22,8 +22,18 @@ class Login extends PureComponent {
             <div className="authentication__container">
                 <Header />
                 <Content className="authentication__form">
-                    <h2>Sign In:</h2>
+                    <h2>Sign Up:</h2>
                     <Form onSubmit={this.handleSubmit} >
+                        <Form.Item>
+                            {getFieldDecorator('name', {
+                                rules: [{ required: true, message: 'Please input your Full Name' }],
+                            })(
+                                <Input
+                                    prefix={<Icon type="user" />}
+                                    placeholder="Full Name"
+                                />
+                            )}
+                        </Form.Item>
                         <Form.Item>
                             {getFieldDecorator('email', {
                                 rules: [{ required: true, message: 'Please input your email!' }],
@@ -46,14 +56,10 @@ class Login extends PureComponent {
                             )}
                         </Form.Item>
                         <Form.Item>
-                            {getFieldDecorator('remember', {
-                                valuePropName: 'checked',
-                                initialValue: false,
-                            })(<Checkbox>Remember me</Checkbox>)}
                             <Button type="primary" htmlType="submit" className="authentication__form-button">
-                                Sign in
+                                Sign Up
                             </Button>
-                            Or <Link to="/register">Register Now</Link>
+                            Already a Member? <Link to="/login">Sign In</Link>
                         </Form.Item>
                     </Form>
                 </Content>

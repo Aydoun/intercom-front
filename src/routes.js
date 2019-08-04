@@ -1,19 +1,22 @@
 import React from 'react';
-import { Router, Route } from 'react-router-dom';
-import history from './history';
+import { Route, BrowserRouter } from 'react-router-dom';
 import { appRoutes as routes } from './config/index';
 import PrivateRoute from './hoc/PrivateRoute';
 
 import Login from './pages/Login';
+import Register from './pages/Login/register';
 import Home from './pages/Home';
+// import NotFound from './components/notFound';
+
 
 export default () => (
-    <Router history={history}>
+    <BrowserRouter >
         { /* Containers */ }
-        <Route path={routes.LOGIN} component={Login} />
-        <PrivateRoute path={routes.HOME} component={Home} />
+        <Route path={routes.LOGIN} component={Login} exact />
+        <Route path={routes.REGISTER} component={Register} exact/>
+        <PrivateRoute path={routes.HOME} component={Home} exact/>
 
         { /* 404 */ }
-        <Route path="*" component={null} />
-    </Router>
+        {/* <Route path="*" component={NotFound} /> */}
+    </BrowserRouter>
 );
