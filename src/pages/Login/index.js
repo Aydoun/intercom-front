@@ -1,3 +1,9 @@
 import React from 'react';
+import Header from '../../components/Header/LoginHeader';
 
-export default () => (<p>This is the login page</p>);
+export default () => (
+    <div>
+        <Header />
+        <p>This is Login Page</p>
+    </div>
+);

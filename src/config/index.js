@@ -10,6 +10,5 @@ export const baseURL = '/';
 
 export const appRoutes = {
   HOME: baseURL,
-  // products
   LOGIN: `${baseURL}${LOGIN_URI}`,
 };
