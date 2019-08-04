@@ -2,6 +2,11 @@
 @import './colors.scss';
 
 .login {
+    &__container {
+        display: flex;
+        min-height: 100vh;
+        flex-direction: column;
+    }
     &__header {
         background: $dark;
 
@@ -9,6 +14,18 @@
             color: $white;
             font-size: $font-size-large;
             font-weight: $font-bold;
+        }
+    }
+
+    &__form {
+        margin: 100px auto;
+        border: 1px solid $gray;
+        padding: 50px;
+        border-radius: 8px;
+        flex: 1 1;
+
+        &-button {
+            width: 100%;
         }
     }
 }

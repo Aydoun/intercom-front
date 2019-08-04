@@ -1,12 +1,15 @@
 $font-family: 'OpenSans', -apple-system, 'Helvetica Neue', Arial, sans-serif;
 
-
+// Fonts
 $font-size-default: 1em; // 14px
-
 $font-size-small: 0.85em; 
 $font-size-regular: 1.2em; 
 $font-size-large: 1.5em; 
 $font-size-mlarge: 2em; 
 $font-size-xlarge: 2.4em; 
-
 $font-bold: 700;
+
+// Responsive Break points
+$page-width-desktop: 1170px;
+$page-width-tablet: 768px;
+$page-width-mobile: 768px;
