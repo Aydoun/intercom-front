@@ -1,3 +1,12 @@
 import React from 'react';
+import { Layout } from 'antd';
 
-export default () => (<p>This is App Header</p>);
+const { Header } = Layout;
+
+export default () => (
+    <Header className="app__header">
+        <div className="app__header-text">
+            Brand
+        </div> 
+    </Header>
+);

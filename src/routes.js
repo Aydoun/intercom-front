@@ -14,7 +14,7 @@ export default () => (
         { /* Containers */ }
         <Route path={routes.LOGIN} component={Login} exact />
         <Route path={routes.REGISTER} component={Register} exact/>
-        <PrivateRoute path={routes.HOME} component={Home} exact/>
+        <PrivateRoute path={routes.HOME} page={Home} exact/>
 
         { /* 404 */ }
         {/* <Route path="*" component={NotFound} /> */}

@@ -19,7 +19,7 @@ class Login extends PureComponent {
     render() {
         const { getFieldDecorator } = this.props.form;
         return (
-            <div className="authentication__container">
+            <div className="app__container">
                 <Header />
                 <Content className="authentication__form">
                     <h2>Sign In:</h2>

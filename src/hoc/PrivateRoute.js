@@ -1,13 +1,13 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Route } from 'react-router-dom';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import AppLayout from '../components/Layout';
+import Login from '../pages/Login';
 
 const isLoggedIn = () => true;
 
 export default props => {
     const {
-        component: Component,
+        page: Page,
         path,
     } = props;
 
@@ -15,12 +15,9 @@ export default props => {
         <Route
             render={
                 props => isLoggedIn() ?
-                    (<Fragment>
-                        <Header />
-                        <Component {...props} />
-                        <Footer />
-                    </Fragment>) :
-                    (<p>this is a private route, you need to login first</p>)
+                    <AppLayout>
+                        <Page {...props} />
+                    </AppLayout> : <Login />
             }
             exact
             path={path}
