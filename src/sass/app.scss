@@ -1,0 +1,14 @@
+@import './variables.scss';
+@import './colors.scss';
+
+.login {
+    &__header {
+        background: $dark;
+
+        &-text {
+            color: $white;
+            font-size: $font-size-large;
+            font-weight: $font-bold;
+        }
+    }
+}
