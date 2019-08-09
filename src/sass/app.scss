@@ -1,6 +1,15 @@
 @import './variables.scss';
 @import './colors.scss';
 
+html, body {
+    height: 100%;
+    margin: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    background: $app-background;
+}
+
 .app {
     &__container {
         display: flex;
@@ -9,7 +18,12 @@
     }
 
     &__wrapper {
-        margin: 20px 0px 0px 50px;
+        margin: 23px 56px;
+        padding: 30px 50px;
+        background: #FFF;
+        min-height: -webkit-fill-available;
+        border-radius: 10px;
+        border: 1px solid $gray;
     }
 
     &__logo {
@@ -32,7 +46,8 @@
 
     &__menu {
         align-self: center;
-        
+        display: flex;
+
         &-icon {
             font-size: 30px;
             color: $white;
