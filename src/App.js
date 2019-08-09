@@ -1,7 +1,7 @@
 import React from 'react';
 import { BackTop } from 'antd';
 import Routes from './routes';
-import './sass/app.scss';
+import './styles/app.scss';
 
 function App() {
   return (

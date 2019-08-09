@@ -2,8 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import AppLayout from '../components/Layout';
 import Login from '../pages/Login';
-
-const isLoggedIn = () => true;
+import { isLoggedIn } from '../utils';
 
 export default props => {
     const {
