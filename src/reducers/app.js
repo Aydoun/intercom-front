@@ -11,7 +11,7 @@ const initialState = {
 
 function appReducer(state = initialState, action) {
   switch (action.type) {
-    case C.UPDATE_NOTIFCATION:
+    case C.SHOW_NOTIFCATION:
       return {
           ...state,
           notificationKey: state.notificationKey + 1,

@@ -1,6 +1,6 @@
 import { all, takeLatest, call, put } from 'redux-saga/effects';
-import { BrowserRouter } from 'react-router-dom';
 import * as C from 'constants/auth';
+import { showError } from 'actions/index';
 import * as A from 'actions/auth';
 import { endpoints } from 'config';
 import { saveToken } from 'utils';
@@ -21,7 +21,8 @@ export function* userLogin(userInfo) {
     saveToken(res.token);
     window.location.href = '/';
   } catch (err) {
-    console.log(err);
+    yield put(showError('error', 'Wrong Login Information, please Try again!'));
+    yield put(A.saveLogin(null));
   }
 }
 
