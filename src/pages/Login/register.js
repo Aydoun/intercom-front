@@ -56,7 +56,7 @@ class Login extends PureComponent {
                             )}
                         </Form.Item>
                         <Form.Item>
-                            <Button type="primary" htmlType="submit" className="authentication__form-button">
+                            <Button type="primary" htmlType="submit" icon="user-add" className="authentication__form-button">
                                 Sign Up
                             </Button>
                             Already a Member? <Link to="/login">Sign In</Link>

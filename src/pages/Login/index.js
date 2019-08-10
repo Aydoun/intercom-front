@@ -1,17 +1,19 @@
 import React, { PureComponent } from 'react';
-import { Layout, Form, Input, Icon, Button, Checkbox } from 'antd';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Form, Input, Icon, Button } from 'antd';
 import { Link } from 'react-router-dom';
 import Header from '../../components/Header/AuthenticationHeader';
 import Footer from '../../components/Footer';
-
-const { Content } = Layout;
+import { triggerLogin } from '../../actions/auth';
 
 class Login extends PureComponent {
     handleSubmit = (e) => { 
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
+            this.props.triggerLogin(values);
             if (!err) {
-                console.log('Received values of form: ', values);
+                
             }
         });
      }
@@ -21,7 +23,7 @@ class Login extends PureComponent {
         return (
             <div className="app__container">
                 <Header />
-                <Content className="authentication__form">
+                <div className="authentication__form">
                     <h2>Sign In:</h2>
                     <Form onSubmit={this.handleSubmit} >
                         <Form.Item>
@@ -46,17 +48,13 @@ class Login extends PureComponent {
                             )}
                         </Form.Item>
                         <Form.Item>
-                            {getFieldDecorator('remember', {
-                                valuePropName: 'checked',
-                                initialValue: false,
-                            })(<Checkbox>Remember me</Checkbox>)}
-                            <Button type="primary" htmlType="submit" className="authentication__form-button">
+                            <Button type="primary" htmlType="submit" icon="login" className="authentication__form-button">
                                 Sign in
                             </Button>
                             Or <Link to="/register">Register Now</Link>
                         </Form.Item>
                     </Form>
-                </Content>
+                </div>
                 <Footer />
             </div>
         );
@@ -65,4 +63,12 @@ class Login extends PureComponent {
 
 const LoginForm = Form.create({ name: 'normal_login' })(Login);
 
-export default LoginForm;
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ triggerLogin }, dispatch);
+}
+  
+function mapStateToProps(state) {
+    return {};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
