@@ -8,6 +8,7 @@ const REGISTER_URI = 'register';
 const hostBase = 'http://localhost:3001/api';
 export const endpoints = {
   LOGIN: `${hostBase}/user/login`,
+  REGISTER: `${hostBase}/user/register`,
 };
 
 export const appBaseURL = '/';

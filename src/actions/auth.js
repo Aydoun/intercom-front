@@ -5,7 +5,12 @@ export const triggerLogin = payload => ({
     payload,
 });
 
-export const saveLogin = payload => ({
-    type: C.USER_LOGIN_FULLFILLED,
+export const triggerRegister = payload => ({
+    type: C.USER_REGISTER_PENDING,
+    payload,
+});
+
+export const saveAuth = payload => ({
+    type: C.USER_AUTH_FULLFILLED,
     payload,
 });

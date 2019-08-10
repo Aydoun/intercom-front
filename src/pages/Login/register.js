@@ -1,27 +1,29 @@
 import React, { PureComponent } from 'react';
-import { Layout, Form, Input, Icon, Button } from 'antd';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Form, Input, Icon, Button } from 'antd';
 import { Link } from 'react-router-dom';
 import Header from 'components/Header/AuthenticationHeader';
 import Footer from 'components/Footer';
+import { triggerRegister } from 'actions/auth';
 
-const { Content } = Layout;
-
-class Login extends PureComponent {
+class Register extends PureComponent {
     handleSubmit = (e) => { 
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
+                this.props.triggerRegister(values);
             }
         });
      }
 
     render() {
-        const { getFieldDecorator } = this.props.form;
+        const { auth: { registerFetching }, form: { getFieldDecorator } } = this.props;
+
         return (
             <div className="app__container">
                 <Header />
-                <Content className="authentication__form">
+                <div className="authentication__form">
                     <h2>Sign Up:</h2>
                     <Form onSubmit={this.handleSubmit} >
                         <Form.Item>
@@ -56,19 +58,35 @@ class Login extends PureComponent {
                             )}
                         </Form.Item>
                         <Form.Item>
-                            <Button type="primary" htmlType="submit" icon="user-add" className="authentication__form-button">
+                            <Button 
+                                type="primary" 
+                                htmlType="submit" 
+                                icon="user-add" 
+                                className="authentication__form-button"
+                                loading={registerFetching}
+                            >
                                 Sign Up
                             </Button>
                             Already a Member? <Link to="/login">Sign In</Link>
                         </Form.Item>
                     </Form>
-                </Content>
+                </div>
                 <Footer />
             </div>
         );
     }
 }
 
-const LoginForm = Form.create({ name: 'normal_login' })(Login);
+const RegisterForm = Form.create({ name: 'normal_register' })(Register);
 
-export default LoginForm;
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ triggerRegister }, dispatch);
+}
+  
+function mapStateToProps({ auth }) {
+    return {
+        auth,
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterForm);
