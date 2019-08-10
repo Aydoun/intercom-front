@@ -1,4 +1,4 @@
-export const saveToken = token => localStorage.setItem('token', token);
-export const getToken = () => localStorage.getItem('token');
+export const saveToken = tk => localStorage.setItem('tk', tk);
+export const getToken = () => localStorage.getItem('tk');
 export const clearStorage = () => localStorage.clear();
-export const isLoggedIn = () => localStorage.getItem('token') !== null;
+export const isLoggedIn = () => getToken() !== null;

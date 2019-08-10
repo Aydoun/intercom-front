@@ -3,23 +3,23 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Form, Input, Icon, Button } from 'antd';
 import { Link } from 'react-router-dom';
-import Header from '../../components/Header/AuthenticationHeader';
-import Footer from '../../components/Footer';
-import { triggerLogin } from '../../actions/auth';
+import Header from 'components/Header/AuthenticationHeader';
+import Footer from 'components/Footer';
+import { triggerLogin } from 'actions/auth';
 
 class Login extends PureComponent {
     handleSubmit = (e) => { 
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
-            this.props.triggerLogin(values);
             if (!err) {
-                
+                this.props.triggerLogin(values);
             }
         });
      }
 
     render() {
-        const { getFieldDecorator } = this.props.form;
+        const { auth: { fetching }, form: { getFieldDecorator } } = this.props;
+
         return (
             <div className="app__container">
                 <Header />
@@ -48,7 +48,13 @@ class Login extends PureComponent {
                             )}
                         </Form.Item>
                         <Form.Item>
-                            <Button type="primary" htmlType="submit" icon="login" className="authentication__form-button">
+                            <Button 
+                                type="primary" 
+                                htmlType="submit" 
+                                icon="login" 
+                                className="authentication__form-button"
+                                loading={fetching}
+                            >
                                 Sign in
                             </Button>
                             Or <Link to="/register">Register Now</Link>
@@ -67,8 +73,10 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({ triggerLogin }, dispatch);
 }
   
-function mapStateToProps(state) {
-    return {};
+function mapStateToProps({ auth }) {
+    return {
+        auth,
+    };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

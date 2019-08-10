@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
 import { Layout, Form, Input, Icon, Button } from 'antd';
 import { Link } from 'react-router-dom';
-import Header from '../../components/Header/AuthenticationHeader';
-import Footer from '../../components/Footer';
+import Header from 'components/Header/AuthenticationHeader';
+import Footer from 'components/Footer';
 
 const { Content } = Layout;
 

@@ -5,12 +5,15 @@ const LOGIN_URI = 'login';
 const REGISTER_URI = 'register';
 
 // api endpoints
-export const endpoints = {};
+const hostBase = 'http://localhost:3001/api';
+export const endpoints = {
+  LOGIN: `${hostBase}/user/login`,
+};
 
-export const baseURL = '/';
+export const appBaseURL = '/';
 
 export const appRoutes = {
-  HOME: baseURL,
-  LOGIN: `${baseURL}${LOGIN_URI}`,
-  REGISTER: `${baseURL}${REGISTER_URI}`,
+  HOME: appBaseURL,
+  LOGIN: `${appBaseURL}${LOGIN_URI}`,
+  REGISTER: `${appBaseURL}${REGISTER_URI}`,
 };

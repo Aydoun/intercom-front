@@ -18,6 +18,5 @@ export default () => (
 
             <Route path="*" component={NotFound} />
         </Switch>
-        
     </BrowserRouter>
 );

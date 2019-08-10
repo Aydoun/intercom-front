@@ -1,4 +1,4 @@
-import * as C from '../constants/app';
+import * as C from 'constants/app';
 
 const initialState = {
   notificationKey: 0,
