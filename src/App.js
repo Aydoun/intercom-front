@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import ErrorHandler from 'components/ErrorHandler';
 import { BackTop } from 'antd';
 import Routes from './routes';
-// import { fetchUser } from 'actions/auth';
+import { triggerFetchUser } from 'actions/user';
 import { getToken } from 'utils';
 import './styles/app.scss';
 
@@ -12,7 +12,7 @@ class App extends PureComponent {
   componentDidMount() {
     const token = getToken();
     if (token) {
-      // this.props.fetchUser();
+      this.props.triggerFetchUser();
     }
   }
 
@@ -29,9 +29,8 @@ class App extends PureComponent {
   }
 }
 
-
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({  }, dispatch);
+  return bindActionCreators({ triggerFetchUser }, dispatch);
 }
 
 function mapStateToProps({ app }) {

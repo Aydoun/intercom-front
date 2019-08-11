@@ -14,6 +14,7 @@ export function* PersistPlan(userInfo) {
 
   try {
     yield call(request, PostOptions);
+    yield put({ type: C.PLAN_CREATE_FULLFILLED });
     
     yield put(showError('success', 'Plan Successfully Added'));
   } catch (err) {

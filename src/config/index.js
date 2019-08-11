@@ -11,6 +11,7 @@ export const endpoints = {
   LOGIN: `${hostBase}/user/login`,
   REGISTER: `${hostBase}/user/register`,
   PLANS: `${hostBase}/plan`,
+  USER: `${hostBase}/user`,
 };
 
 export const appBaseURL = '/';

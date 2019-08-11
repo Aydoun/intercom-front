@@ -17,13 +17,20 @@ class addPlan extends PureComponent {
     e.preventDefault();
     this.props.form.validateFields((err, fieldsValue) => {
       if (!err) {
+        const { user } = this.props;
+        const params = {
+          ...fieldsValue,
+          username: user.name,
+          email: user.email,
+        };
+        console.log(params, 22);
         // const { authInfo } = this.props;
         // const params = assign({}, {
         //     author : localStorage.fullName,
         //     authorMail : localStorage.email
         // }, fieldsValue);
 
-        this.props.triggerPlanCreation(fieldsValue);
+        this.props.triggerPlanCreation(params);
       }
     });
   }
@@ -57,7 +64,7 @@ class addPlan extends PureComponent {
             <FormItem >
               <Button
                   type="primary" 
-                  
+                  loading={fetching}
                   icon="save"
                   onClick={this.handleSubmit}
               >
@@ -74,9 +81,10 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({ triggerPlanCreation }, dispatch);
 }
 
-function mapStateToProps({ plans }) {
+function mapStateToProps({ plans, user }) {
   return {
     fetching: plans.fetching,
+    user: user.collection,
   };
 }
 
