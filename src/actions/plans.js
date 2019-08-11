@@ -5,7 +5,17 @@ export const triggerPlanCreation = payload => ({
     payload,
 });
 
-export const savePlan = payload => ({
+export const triggerPlanList = payload => ({
+    type: C.PLAN_LIST_PENDING,
+    payload,
+});
+
+export const createPlan = payload => ({
     type: C.PLAN_CREATE_FULLFILLED,
+    payload,
+});
+
+export const savePlanList = payload => ({
+    type: C.PLAN_LIST_FULLFILLED,
     payload,
 });

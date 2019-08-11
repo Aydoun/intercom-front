@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { string, func, bool } from 'prop-types';
+import { bool } from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Form, Button, Input } from 'antd';

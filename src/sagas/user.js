@@ -6,14 +6,14 @@ import { endpoints } from 'config';
 import request from 'utils/request';
 
 export function* PersistUser(userInfo) {
-  const PostOptions = {
+  const options = {
     method: 'GET',
     url: endpoints.USER,
     data: userInfo.payload
   };
 
   try {
-    const res = yield call(request, PostOptions);
+    const res = yield call(request, options);
     yield put(A.saveUser(res))
   } catch (err) {
     yield put(showError('error', 'Couldn\'t Retrieve Your information'));

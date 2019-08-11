@@ -8,14 +8,14 @@ import { saveToken } from 'utils';
 import request from 'utils/request';
 
 export function* userLogin(userInfo) {
-  const PostOptions = {
+  const options = {
     method: 'POST',
     url: endpoints.LOGIN,
     data: userInfo.payload
   };
 
   try {
-    const res = yield call(request, PostOptions);
+    const res = yield call(request, options);
     yield put(A.saveAuth(res));
 
     saveToken(res.token);
@@ -27,14 +27,14 @@ export function* userLogin(userInfo) {
 }
 
 export function* userRegister(userInfo) {
-  const PostOptions = {
+  const options = {
     method: 'POST',
     url: endpoints.REGISTER,
     data: userInfo.payload
   };
 
   try {
-    const res = yield call(request, PostOptions);
+    const res = yield call(request, options);
     yield put(A.saveAuth(res));
 
     saveToken(res.token);
