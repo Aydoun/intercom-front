@@ -18,7 +18,7 @@ export function* PersistPlan(userInfo) {
     
     yield put(showError('success', 'Plan Successfully Added'));
   } catch (err) {
-    yield put(showError('error', 'Wrong Information, please Try again!'));
+    yield put(showError('error', 'Error While Saving Your changes'));
   }
 }
 

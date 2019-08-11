@@ -1,84 +1,88 @@
 @import './variables.scss';
 @import './colors.scss';
 
-html, body {
-    height: 100%;
-    margin: 0;
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    background: $app-background;
+html,
+body {
+  height: 100%;
+  margin: 0;
+  box-sizing: border-box;
+  padding: 0;
+  background: $app-background;
+}
+
+.blabla {
+  margin: 20px;
 }
 
 .app {
-    &__container {
-        display: flex;
-        min-height: 100vh;
-        flex-direction: column;
-    }
+  &__container {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
 
-    &__wrapper {
-        margin: 23px 50px;
-        padding: 30px 56px;
-        background: #FFF;
-        min-height: -webkit-fill-available;
-        border-radius: 10px;
-        border: 1px solid $gray;
-    }
+  &__wrapper {
+    margin: 23px 50px;
+    padding: 30px 56px;
+    background: #fff;
+    min-height: -webkit-fill-available;
+    border-radius: 10px;
+    border: 1px solid $gray;
+  }
 
-    &__logo {
-        line-height: 50px;
-    }
+  &__logo {
+    line-height: 50px;
+  }
 }
 
 .header {
-    background: $dark;
-    padding: 0 50px;
-    height: 52px;
+  background: $dark;
+  padding: 0 50px;
+  height: 52px;
+  display: flex;
+  justify-content: space-between;
+
+  &-text {
+    color: $white;
+    font-size: $font-size-large;
+    font-weight: $font-bold;
+  }
+
+  &__menu {
+    align-self: center;
     display: flex;
-    justify-content: space-between;
 
-    &-text {
-        color: $white;
-        font-size: $font-size-large;
-        font-weight: $font-bold;
+    &-icon {
+      font-size: 30px;
+      color: $white;
+      opacity: 0.9;
+      margin-left: 8px;
+
+      &:hover {
+        opacity: 1;
+      }
     }
-
-    &__menu {
-        align-self: center;
-        display: flex;
-
-        &-icon {
-            font-size: 30px;
-            color: $white;
-            opacity: 0.9;
-            margin-left: 8px;
-
-            &:hover {
-                opacity: 1;
-            }
-        }
-    }
+  }
 }
 
 .authentication {
-    &__form {
-        width: 500px;
-        margin: 100px auto;
-        border: 1px solid $gray;
-        background: $white;
-        padding: 50px;
-        border-radius: 8px;
-        flex: 1 1;
+  &__form {
+    width: 500px;
+    margin: 100px auto;
+    border: 1px solid $gray;
+    background: $white;
+    padding: 50px;
+    border-radius: 8px;
+    flex: 1 1;
 
-        &-button {
-            width: 100%;
-        }
+    &-button {
+      width: 100%;
     }
+  }
 }
 
 .plans {
-    &__creation-form {
-        min-width: 400px;
-    }
+  &__creation-form {
+    min-width: 400px;
+  }
 }

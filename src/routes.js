@@ -6,7 +6,7 @@ import PrivateRoute from './hoc/PrivateRoute';
 import Login from './pages/Login';
 import Register from './pages/Login/register';
 import Home from './pages/Home';
-import NotFound from './components/notFound';
+import NotFound from './components/NotFound';
 
 
 export default () => (
