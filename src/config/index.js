@@ -1,6 +1,7 @@
 
 //TODO: Add env Support
 // const LOGIN_URI = process.env.REACT_APP_CHANGE_IBAN_URI;
+
 const LOGIN_URI = 'login';
 const REGISTER_URI = 'register';
 
@@ -9,6 +10,7 @@ const hostBase = 'http://localhost:3001/api';
 export const endpoints = {
   LOGIN: `${hostBase}/user/login`,
   REGISTER: `${hostBase}/user/register`,
+  PLANS: `${hostBase}/plan`,
 };
 
 export const appBaseURL = '/';

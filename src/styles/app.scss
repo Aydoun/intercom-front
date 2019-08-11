@@ -76,3 +76,9 @@ html, body {
         }
     }
 }
+
+.plans {
+    &__creation-form {
+        min-width: 400px;
+    }
+}

@@ -1,30 +1,43 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import ErrorHandler from 'components/ErrorHandler';
 import { BackTop } from 'antd';
 import Routes from './routes';
+// import { fetchUser } from 'actions/auth';
+import { getToken } from 'utils';
 import './styles/app.scss';
 
-function App(props) {
-  const { notificationData, notificationKey } = props;
+class App extends PureComponent {
+  componentDidMount() {
+    const token = getToken();
+    if (token) {
+      // this.props.fetchUser();
+    }
+  }
 
-  return (
-    <div >
-      <BackTop />
-      <Routes />
-      <ErrorHandler notificationData={notificationData} key={notificationKey} />
-    </div>
-  );
+  render() {
+    const { notificationData, notificationKey } = this.props;
+
+    return (
+      <div >
+        <BackTop />
+        <Routes />
+        <ErrorHandler notificationData={notificationData} key={notificationKey} />
+      </div>
+    );
+  }
 }
+
 
 function mapDispatchToProps(dispatch) {
-  return {};
+  return bindActionCreators({  }, dispatch);
 }
 
-function mapStateToProps(state) {
+function mapStateToProps({ app }) {
   return {
-    notificationData: state.app.notificationData,
-    notificationKey: state.app.notificationKey,
+    notificationData: app.notificationData,
+    notificationKey: app.notificationKey,
   };
 }
 

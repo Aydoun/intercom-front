@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getToken } from 'utils';
 
 function checkStatus(res) {
     const data = res.data;
@@ -12,8 +13,8 @@ function checkStatus(res) {
 export default function request(options) {
     return axios({
         ...options,
-        headers: { 'x-api-key': localStorage.getItem('tk') },
-        timeout: 15 * 1000,
+        headers: { 'x-api-key': getToken() },
+        timeout: 10 * 1000,
     })
     .then(checkStatus);
 }
