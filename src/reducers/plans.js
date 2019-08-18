@@ -22,6 +22,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         fetching: false,
+        collection: state.collection.concat(action.payload),
       }
     case C.PLAN_LIST_FULLFILLED:
       return {

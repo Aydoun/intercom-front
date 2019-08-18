@@ -4,7 +4,7 @@ import Header from '../Header';
 export default ({ children }) => (
     <div>
         <Header />
-        <div className="app__wrapper">
+        <div className="app">
             { children }
         </div>
     </div>

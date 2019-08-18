@@ -13,8 +13,8 @@ export function* PersistPlan({ payload }) {
   };
 
   try {
-    yield call(request, options);
-    yield put(A.createPlan({}));
+    const res = yield call(request, options);
+    yield put(A.createPlan(res));
     
     yield put(showError('success', 'Plan Successfully Added'));
   } catch (err) {
@@ -34,6 +34,7 @@ export function* ListPlans() {
     
   } catch (err) {
     yield put(showError('error', 'Server Error, please try again!'));
+    yield put(A.savePlanList([]));
   }
 }
 

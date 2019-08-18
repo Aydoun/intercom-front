@@ -15,19 +15,17 @@ body {
 }
 
 .app {
+  margin: 23px 50px;
+  padding: 30px 56px;
+  background: #fff;
+  min-height: -webkit-fill-available;
+  border-radius: 10px;
+  border: 1px solid $gray;
+
   &__container {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
-  }
-
-  &__wrapper {
-    margin: 23px 50px;
-    padding: 30px 56px;
-    background: #fff;
-    min-height: -webkit-fill-available;
-    border-radius: 10px;
-    border: 1px solid $gray;
   }
 
   &__logo {

@@ -23,14 +23,9 @@ class addPlan extends PureComponent {
           username: user.name,
           email: user.email,
         };
-        console.log(params, 22);
-        // const { authInfo } = this.props;
-        // const params = assign({}, {
-        //     author : localStorage.fullName,
-        //     authorMail : localStorage.email
-        // }, fieldsValue);
 
         this.props.triggerPlanCreation(params);
+        this.props.form.resetFields();
       }
     });
   }
