@@ -21,7 +21,7 @@ class Login extends PureComponent {
         const { auth: { fetching }, form: { getFieldDecorator } } = this.props;
 
         return (
-            <div className="app__container">
+            <div className="authentication__container">
                 <Header />
                 <div className="authentication__form">
                     <h2>Sign In:</h2>

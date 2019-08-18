@@ -7,6 +7,7 @@
     "axios": "^0.19.0",
     "babel-polyfill": "^6.26.0",
     "history": "^4.9.0",
+    "object-keys": "^1.1.1",
     "prop-types": "^15.7.2",
     "react": "^16.8.2",
     "react-app-rewired": "^2.1.3",
@@ -24,9 +25,7 @@
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject",
-    "lint-style": "stylelint 'src/styles/*.scss'",
-    "docz:dev": "docz dev",
-    "docz:build": "docz build"
+    "lint-style": "stylelint 'src/styles/*.scss'"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -43,13 +42,8 @@
       "last 1 safari version"
     ]
   },
-  "resolutions": {
-    "docz/**/webpack": "4.28.4"
-  },
   "devDependencies": {
     "babel-plugin-import": "^1.12.0",
-    "docz": "^2.0.0-rc.1",
-    "docz-theme-default": "^1.2.0",
     "node-sass": "^4.12.0",
     "stylelint": "^10.1.0",
     "stylelint-config-standard": "^18.3.0"

@@ -10,22 +10,18 @@ body {
   background: $app-background;
 }
 
-.blabla {
-  margin: 20px;
-}
-
 .app {
-  margin: 23px 50px;
-  padding: 30px 56px;
-  background: #fff;
+  margin: 25px 50px;
   min-height: -webkit-fill-available;
-  border-radius: 10px;
-  border: 1px solid $gray;
 
   &__container {
     display: flex;
-    min-height: 100vh;
-    flex-direction: column;
+  }
+
+  &__page {
+    flex: 1;
+    margin-left: 15px;
+    background: #fff;
   }
 
   &__logo {
@@ -76,6 +72,12 @@ body {
     &-button {
       width: 100%;
     }
+  }
+
+  &__container {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
   }
 }
 

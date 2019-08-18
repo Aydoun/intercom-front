@@ -21,7 +21,7 @@ class Register extends PureComponent {
         const { auth: { registerFetching }, form: { getFieldDecorator } } = this.props;
 
         return (
-            <div className="app__container">
+            <div className="authentication__container">
                 <Header />
                 <div className="authentication__form">
                     <h2>Sign Up:</h2>
