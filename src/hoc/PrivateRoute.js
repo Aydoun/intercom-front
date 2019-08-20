@@ -2,7 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import { string, node } from 'prop-types';
 import AppLayout from 'components/Layout';
-import Profile from 'components/Profile';
+import ProfileCard from 'components/ProfileCard';
 import Login from 'pages/Login';
 import { isLoggedIn } from 'utils';
 
@@ -20,7 +20,7 @@ const PrivateRoute = props => {
           <AppLayout>
             <div className="app__container">
               <div className="app_menu">
-                {Menu ? <Menu /> : <Profile />}
+                {Menu ? <Menu /> : <ProfileCard />}
               </div>
               <div className="app__page">
                 <Page {...props} />

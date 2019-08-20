@@ -1,6 +1,7 @@
 import {
     formatName,
     displayNumber,
+    readableDate,
 } from './';
 
 test('Should returns the correct name format', () => {
@@ -13,7 +14,7 @@ test('Should returns the correct name format', () => {
     expect(formatName('Alice In The Wonderlerland')).toEqual('AI');
     expect(formatName('MO $Gaga')).toEqual('MG');
     expect(formatName(';;@Name %Last name')).toEqual('NL');
-    expect(formatName('Lady Gaga')).toEqual('LG');
+    expect(formatName('lady gaga')).toEqual('LG');
     expect(formatName('This Undefined')).toEqual('TU');
 });
 
@@ -42,5 +43,18 @@ test('Should print the correct points amount', () => {
   expect(displayNumber(Math.pow(10, 11) + 2)).toEqual('100B');
 
   // TODO: Number more than 100B case
+});
+
+test('Should returns the correct name format', () => {
+  expect(readableDate(null)).toEqual('');
+  expect(readableDate(undefined)).toEqual('');
+  expect(readableDate([])).toEqual('');
+  expect(readableDate('')).toEqual('');
+  
+  expect(readableDate('$%')).toEqual('');
+  expect(readableDate('not a date random string')).toEqual('');
+  expect(readableDate('22-03-2004')).toEqual('');
+  
+  expect(readableDate('2019-08-18T10:04:59.566')).toEqual('Aug 18, 2019');
 });
 

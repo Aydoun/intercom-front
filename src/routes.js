@@ -6,6 +6,7 @@ import PrivateRoute from './hoc/PrivateRoute';
 import Login from './pages/Login';
 import Register from './pages/Login/register';
 import Home from './pages/Home';
+import Profile from './pages/Profile';
 import NotFound from './components/NotFound';
 
 
@@ -15,6 +16,7 @@ export default () => (
             <Route path={routes.LOGIN} component={Login} exact />
             <Route path={routes.REGISTER} component={Register} exact/>
             <PrivateRoute path={routes.HOME} page={Home} exact/>
+            <PrivateRoute path={routes.PROFILE} page={Profile} exact/>
 
             <Route path="*" component={NotFound} />
         </Switch>

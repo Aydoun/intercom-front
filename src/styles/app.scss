@@ -88,3 +88,9 @@ body {
     min-width: 400px;
   }
 }
+
+.profile {
+  &__avatar-uploader {
+    cursor: pointer;
+  }
+}

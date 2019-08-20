@@ -4,6 +4,7 @@
 
 const LOGIN_URI = 'login';
 const REGISTER_URI = 'register';
+const PROFILE_URI = 'profile';
 
 // api endpoints
 const hostBase = 'http://localhost:3001/api';
@@ -20,4 +21,5 @@ export const appRoutes = {
   HOME: appBaseURL,
   LOGIN: `${appBaseURL}${LOGIN_URI}`,
   REGISTER: `${appBaseURL}${REGISTER_URI}`,
+  PROFILE: `${appBaseURL}${PROFILE_URI}`,
 };

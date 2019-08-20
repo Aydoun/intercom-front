@@ -9,7 +9,7 @@ const { Search } = Input;
 export default () => (
     <div className="header">
         <div className="app__logo">
-            <img src={logo} alt="app-logo"/>
+            <Link to="/"><img src={logo} alt="app-logo"/></Link>
             <Search
                 onSearch={value => console.log(value)}
                 style={{ width: 200, marginLeft: 8 }}

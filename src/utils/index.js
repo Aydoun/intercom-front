@@ -13,12 +13,12 @@ const numbersMapping = {
 };
 
 export const formatName = name => {
-    if (typeof name !== 'string') return '';
+  if (typeof name !== 'string') return '';
 
-    const cleanedName = name.replace(/[|&;$%@"<>()+,]/g, "");
-    const splitted = cleanedName.split(/\s/g);
+  const cleanedName = name.replace(/[|&;$%@"<>()+,]/g, "");
+  const splitted = cleanedName.split(/\s/g);
 
-    return (splitted[0] || '').slice(0,1).trim().toUpperCase() + (splitted[1] || '').slice(0,1).trim().toUpperCase();
+  return ((splitted[0] || '').slice(0, 1) + (splitted[1] || '').slice(0, 1)).toUpperCase();
 }
 
 export const displayNumber = number => {
@@ -27,8 +27,21 @@ export const displayNumber = number => {
 
   const keys = Objectkeys(numbersMapping);
 
-  for(var i = 0; i < keys.length; i++) {
+  for (var i = 0; i < keys.length; i++) {
     const key = Number(keys[i]);
     if (parsedNumber < key) return `${Math.floor(parsedNumber / (key / 1000))}${numbersMapping[key]}`;
   }
+}
+
+export const readableDate = date => {
+  if (!date || typeof date !== 'string') return '';
+  
+  const theDate = new Date(date);
+  if (isNaN(theDate.getTime())) return '';
+
+  return theDate.toLocaleDateString('en-US', {  
+    day : 'numeric',
+    month : 'short',
+    year : 'numeric'
+  });
 }
