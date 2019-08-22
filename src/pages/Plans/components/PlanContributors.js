@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
-class PlanHistory extends PureComponent {
+class PlanContributors extends PureComponent {
   static propTypes = {
   };
 
@@ -13,7 +13,7 @@ class PlanHistory extends PureComponent {
     return (
       <div className="plans">
         <div className="plans__history">
-          <span>I'm History</span>
+          <span>I'm Contributors</span>
         </div>
       </div>
     );
@@ -30,4 +30,4 @@ function mapStateToProps() {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PlanHistory);
+export default connect(mapStateToProps, mapDispatchToProps)(PlanContributors);
