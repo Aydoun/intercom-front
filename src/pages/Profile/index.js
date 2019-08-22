@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { object } from 'prop-types';
 import { connect } from 'react-redux';
 import { Avatar, Descriptions, Badge, Divider, Upload } from 'antd';
-import { readableDate, formatName } from 'utils';
+import { readableDate } from 'utils';
 
 const Profile = props => {
   const { user: { collection } } = props;

@@ -87,6 +87,21 @@ body {
   &__creation-form {
     min-width: 400px;
   }
+
+  &__overview {
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  &__avatar-uploader {
+    cursor: pointer;
+    align-self: center;
+    margin-right: 25px;
+  }
+
+  &__details {
+    flex-grow: 2;
+  }
 }
 
 .profile {

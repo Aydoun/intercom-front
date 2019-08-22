@@ -10,11 +10,6 @@ class Profile extends PureComponent {
 
   render() {
     const { collection, fetching } = this.props;
-    const avatar = collection.avatar ? (
-      <Avatar src={collection.avatar} size="large"/>
-    ) : (
-        <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }} size="large">{formatName(collection.name)}</Avatar>
-      );
 
     return (
       <Card
@@ -26,7 +21,11 @@ class Profile extends PureComponent {
         loading={fetching}
       >
         <Meta
-          avatar={<Link to="/profile">{avatar}</Link>}
+          avatar={<Link to="/profile">
+            <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }} size={64} src={collection.avatar}>
+              {formatName(collection.name)}
+            </Avatar>
+          </Link>}
           title={<Link to="/profile">{collection.name}</Link>}
           description={collection.email}
         />
