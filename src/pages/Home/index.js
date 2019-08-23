@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import { Skeleton, Icon, List, Avatar, Popconfirm } from 'antd';
 import { triggerPlanList } from 'actions/plans';
-import { formatName } from 'utils';
+import { formatName, displayNumber } from 'utils';
 
 const IconText = ({ type, text }) => (
   <span>
@@ -40,14 +40,16 @@ class Home extends PureComponent {
           <List.Item
             key={item._id}
             actions={[
-              <IconText type="like-o" text="156" key="list-vertical-like-o" />,
+              <IconText type="like-o" text={displayNumber(item.points)} key="list-vertical-like-o" />,
               <Popconfirm placement="bottom" key={item._id} title={"Please Confirm"} onConfirm={() => console.log(item._id)} >
                 <Icon type="delete" style={{ color: 'crimson' }} />
               </Popconfirm>,
             ]}
           >
             <List.Item.Meta
-              avatar={<Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }} size="large">{formatName(item.title)}</Avatar>}
+              avatar={<Link to={`/plan/${item._id}`}>
+                <Avatar style={{ color: '#000', backgroundColor: '#f0f5ff' }} size="large">{formatName(item.title)}</Avatar>
+              </Link>}
               title={<Link to={`/plan/${item._id}`}>{item.title}</Link>}
               description={item.description}
             />

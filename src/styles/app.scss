@@ -29,14 +29,19 @@ body {
   &__logo {
     line-height: 50px;
   }
+
+  &__tab {
+    margin: 0 8px;
+  }
 }
 
 .header {
-  background: $dark;
+  background: $white;
   padding: 0 50px;
   height: 52px;
   display: flex;
   justify-content: space-between;
+  box-shadow: 0px 0px 8px 2px $gray;
 
   &-text {
     color: $white;
@@ -48,11 +53,11 @@ body {
     align-self: center;
     display: flex;
 
-    &-icon {
-      font-size: 30px;
-      color: $white;
-      opacity: 0.9;
-      margin-left: 8px;
+    &-tag {
+      font-size: 13px;
+      padding: 5px;
+      cursor: pointer;
+      opacity: 0.8;
 
       &:hover {
         opacity: 1;

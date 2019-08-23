@@ -11,7 +11,7 @@ const PlanSummary = props => {
       <Upload className="plans__avatar-uploader">
         <Avatar size={128} src={plan.avatar} icon="project" />
       </Upload>
-      <Descriptions title={`Plan: ${plan.title}`} bordered className="plans__details">
+      <Descriptions bordered className="plans__details">
         <Descriptions.Item label="Title">{plan.title}</Descriptions.Item>
         <Descriptions.Item label="Description">{plan.description}</Descriptions.Item>
         <Descriptions.Item label="Created at">{readableDate(plan.createdAt)}</Descriptions.Item>

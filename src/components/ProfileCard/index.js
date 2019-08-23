@@ -22,7 +22,7 @@ class Profile extends PureComponent {
       >
         <Meta
           avatar={<Link to="/profile">
-            <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }} size={64} src={collection.avatar}>
+            <Avatar style={{ color: '#000', backgroundColor: '#f0f5ff' }} size={64} src={collection.avatar}>
               {formatName(collection.name)}
             </Avatar>
           </Link>}

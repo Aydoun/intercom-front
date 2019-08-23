@@ -15,7 +15,7 @@ const Profile = props => {
         </Upload>
         <Divider />
       </div>
-      <Descriptions title="User Details" bordered>
+      <Descriptions bordered>
         <Descriptions.Item label="Full Name">{collection.name}</Descriptions.Item>
         <Descriptions.Item label="Primary Email">{collection.email}</Descriptions.Item>
         <Descriptions.Item label="Total Plans">{collection.plans}</Descriptions.Item>
