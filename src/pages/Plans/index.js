@@ -42,7 +42,7 @@ class Plan extends PureComponent {
             <PlanFiles />
           </TabPane>
           <TabPane tab="History" key="2">
-            <PlanHistory />
+            <PlanHistory plan={plan} />
           </TabPane>
           <TabPane tab="Contributors" key="3">
             <PlanContributors />
