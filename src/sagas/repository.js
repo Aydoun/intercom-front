@@ -20,8 +20,24 @@ export function* PersistHistory({ payload }) {
   }
 }
 
+export function* ListFiles({ payload }) {
+  const options = {
+    method: 'GET',
+    url: `${endpoints.REPOSITORY}/${payload.repoName}/tree?branch=master`,
+    data: payload
+  };
+
+  try {
+    const res = yield call(request, options);
+    yield put(A.saveFiles(res));
+  } catch (err) {
+    yield put(showError('error', 'Error While Loading Your Files'));
+  }
+}
+
 export default function* root() {
   yield all([
     takeLatest(C.REPOSITORY_HISTORY_PENDING, PersistHistory),
+    takeLatest(C.REPOSITORY_FILES_PENDING, ListFiles),
   ]);
 }

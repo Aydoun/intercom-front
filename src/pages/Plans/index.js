@@ -39,13 +39,13 @@ class Plan extends PureComponent {
         <Divider />
         <Tabs onChange={() => {}} type="card">
           <TabPane tab="Files" key="1">
-            <PlanFiles />
+            <PlanFiles plan={plan} />
           </TabPane>
           <TabPane tab="History" key="2">
             <PlanHistory plan={plan} />
           </TabPane>
           <TabPane tab="Contributors" key="3">
-            <PlanContributors />
+            <PlanContributors plan={plan} />
           </TabPane>
         </Tabs>
       </div>

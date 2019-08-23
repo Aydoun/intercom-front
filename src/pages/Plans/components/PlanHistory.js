@@ -3,7 +3,7 @@ import { object } from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Timeline, Card } from 'antd';
+import { Timeline, Card, Tag } from 'antd';
 import { triggerHistory } from 'actions/repository';
 import { readableDate } from 'utils';
 
@@ -23,14 +23,17 @@ class PlanHistory extends PureComponent {
     const { repoHistory } = this.props;
 
     return (
-      <div className="plans">
-        <div className="plans__history">
+      <div className="plans__history">
           <Timeline>
           {
             repoHistory.map(item => (
                 <Timeline.Item key={item.sha} >
                   <Link to={`/history/${item.sha}`}>
-                    <Card title={item.author} extra={readableDate(item.date)} hoverable >
+                    <Card 
+                      title={item.author} 
+                      extra={<Tag color="geekblue">{ readableDate(item.date) }</Tag>} 
+                      hoverable 
+                      >
                       <span>{ item.comment }</span>
                     </Card>
                   </Link>
@@ -38,7 +41,6 @@ class PlanHistory extends PureComponent {
             ))
           }
           </Timeline>
-        </div>
       </div>
     );
   }

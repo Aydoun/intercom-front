@@ -6,15 +6,13 @@ class PlanContributors extends PureComponent {
   };
 
   componentDidMount() {
-    
+
   }
 
   render() {
     return (
-      <div className="plans">
-        <div className="plans__history">
-          <span>I'm Contributors</span>
-        </div>
+      <div className="plans__history">
+        <span>I'm Contributors</span>
       </div>
     );
   }
@@ -26,7 +24,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps() {
   return {
-    
+
   };
 }
 
