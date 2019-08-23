@@ -40,7 +40,6 @@ class Home extends PureComponent {
           <List.Item
             key={item._id}
             actions={[
-              <Link to={`/plan/${item._id}`}><IconText type="edit" key="list-vertical-star-o" /></Link>,
               <IconText type="like-o" text="156" key="list-vertical-like-o" />,
               <Popconfirm placement="bottom" key={item._id} title={"Please Confirm"} onConfirm={() => console.log(item._id)} >
                 <Icon type="delete" style={{ color: 'crimson' }} />
