@@ -10,7 +10,6 @@ export const saveHistory = payload => ({
     payload,
 });
 
-
 export const triggerFiles = payload => ({
   type: C.REPOSITORY_FILES_PENDING,
   payload,
@@ -18,5 +17,15 @@ export const triggerFiles = payload => ({
 
 export const saveFiles = payload => ({
   type: C.REPOSITORY_FILES_FULLFILLED,
+  payload,
+});
+
+export const triggerSummary = payload => ({
+  type: C.REPOSITORY_SUMMARY_PENDING,
+  payload,
+});
+
+export const saveSummary = payload => ({
+  type: C.REPOSITORY_SUMMARY_FULLFILLED,
   payload,
 });

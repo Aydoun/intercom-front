@@ -5,7 +5,7 @@ import * as A from 'actions/repository';
 import { endpoints } from 'config';
 import request from 'utils/request';
 
-export function* PersistHistory({ payload }) {
+export function* getHistory({ payload }) {
   const options = {
     method: 'GET',
     url: `${endpoints.REPOSITORY}/${payload.repoName}/history?branch=master`,
@@ -20,11 +20,10 @@ export function* PersistHistory({ payload }) {
   }
 }
 
-export function* ListFiles({ payload }) {
+export function* getFiles({ payload }) {
   const options = {
     method: 'GET',
     url: `${endpoints.REPOSITORY}/${payload.repoName}/tree?branch=master`,
-    data: payload
   };
 
   try {
@@ -35,9 +34,24 @@ export function* ListFiles({ payload }) {
   }
 }
 
+export function* getSummary({ payload }) {
+  const options = {
+    method: 'GET',
+    url: `${endpoints.REPOSITORY}/${payload.repoName}/summary?repoId=${payload.id}`,
+  };
+
+  try {
+    const res = yield call(request, options);
+    yield put(A.saveSummary(res));
+  } catch (err) {
+    yield put(showError('error', 'Error While Loading Your Files'));
+  }
+}
+
 export default function* root() {
   yield all([
-    takeLatest(C.REPOSITORY_HISTORY_PENDING, PersistHistory),
-    takeLatest(C.REPOSITORY_FILES_PENDING, ListFiles),
+    takeLatest(C.REPOSITORY_HISTORY_PENDING, getHistory),
+    takeLatest(C.REPOSITORY_FILES_PENDING, getFiles),
+    takeLatest(C.REPOSITORY_SUMMARY_PENDING, getSummary),
   ]);
 }

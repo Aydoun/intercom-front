@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { Divider, Tabs } from 'antd';
 import PlanFiles from './components/PlanFiles';
 import PlanHistory from './components/PlanHistory';
-import PlanContributors from './components/PlanContributors';
 import PlanSummary from './components/PlanSummary';
+import PlanDetails from './components/PlanDetails';
 
 const { TabPane } = Tabs;
 
@@ -13,7 +13,6 @@ class Plan extends PureComponent {
   static propTypes = {
     plans: array,
   };
-
 
   componentDidMount() {
     const { plans: { collection } } = this.props;
@@ -35,7 +34,7 @@ class Plan extends PureComponent {
 
     return (
       <div className="plans">
-        <PlanSummary plan={plan} />
+        <PlanDetails plan={plan} />
         <Divider />
         <Tabs onChange={() => {}} type="card">
           <TabPane tab="Files" key="1">
@@ -45,7 +44,7 @@ class Plan extends PureComponent {
             <PlanHistory plan={plan} />
           </TabPane>
           <TabPane tab="Contributors" key="3">
-            <PlanContributors plan={plan} />
+            <PlanSummary plan={plan} />
           </TabPane>
         </Tabs>
       </div>
