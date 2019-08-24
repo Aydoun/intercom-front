@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from 'antd';
+import { Button, Result } from 'antd';
 import { clearStorage } from 'utils';
 
 export default class index extends PureComponent {
@@ -10,9 +10,15 @@ export default class index extends PureComponent {
 
   render() {
     return (
-      <div>
-        <Link to="/login"><Button type="primary" >You're Logged out</Button></Link>
-      </div>
+      <Result
+        status="success"
+        title="Successfully Logged Out"
+        extra={[
+          <Link to="/login">
+            <Button type="primary" key="login">Sign In </Button>
+          </Link>
+        ]}
+      />
     )
   }
 }

@@ -9,7 +9,7 @@ import Home from './pages/Home';
 import Profile from './pages/Profile';
 import Plan from './pages/Plans';
 import Logout from './pages/Logout';
-import NotFound from './components/NotFound';
+import NotFound from './components/NotFoundPage';
 
 export default () => (
     <BrowserRouter >
