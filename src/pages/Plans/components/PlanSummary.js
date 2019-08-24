@@ -29,9 +29,7 @@ class PlanSummary extends PureComponent {
   render() {
     const { summary } = this.props;
     const contributors = summary.contributors;
-
-    console.log('summary.contributors :', summary.contributors);
-
+    
     return (
       <div className="plans__history">
         <Row gutter={16}>

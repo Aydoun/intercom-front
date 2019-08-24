@@ -14,8 +14,8 @@ export default class index extends PureComponent {
         status="success"
         title="Successfully Logged Out"
         extra={[
-          <Link to="/login">
-            <Button type="primary" key="login">Sign In </Button>
+          <Link to="/login" key="link">
+            <Button type="primary" key="login">Sign In</Button>
           </Link>
         ]}
       />
