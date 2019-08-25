@@ -1,27 +1,45 @@
 import React, { PureComponent } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
-import { string, node } from 'prop-types';
+import { string, node, object } from 'prop-types';
+import { updateBreadbrumb } from 'actions/index';
 import AppLayout from 'components/Layout';
 import ProfileCard from 'components/ProfileCard';
 import PageBreadcrumb from 'components/Breadcrumb';
 import Login from 'pages/Login';
 import { isLoggedIn } from 'utils';
+import routeMap from 'config/routeMap';
 
 class PrivateRoute extends PureComponent {
   static propTypes = {
     Page: node,
     path: string,
     Menu: node,
+    computedMatch: object,
   };
+
+  componentDidUpdate(prevProps) {
+    const { computedMatch: { path: oldPath } } = prevProps;
+    const { computedMatch: { path: currentPath, url } } = this.props;
+    const mappedUrl = routeMap[currentPath];
+
+    if (typeof mappedUrl !== 'undefined' && oldPath !== currentPath) {
+      this.props.updateBreadbrumb({
+        ...mappedUrl,
+        url,
+      })
+    }
+  }
 
   render() {
     const {
       page: Page,
       path,
       Menu,
+      breadcrumb,
     } = this.props;
-    console.log(this.props, 'props');
-
+    
     return (
       <Route
         render={
@@ -32,7 +50,7 @@ class PrivateRoute extends PureComponent {
                   {Menu ? <Menu /> : <ProfileCard />}
                 </div>
                 <div className="app__page">
-                  <PageBreadcrumb />
+                  <PageBreadcrumb routes={breadcrumb} />
                   <Page {...props} />
                 </div>
               </div>
@@ -45,4 +63,14 @@ class PrivateRoute extends PureComponent {
   }
 }
 
-export default PrivateRoute;
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ updateBreadbrumb }, dispatch);
+}
+
+function mapStateToProps({ app }) {
+  return {
+    breadcrumb: app.breadcrumb,
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PrivateRoute);

@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import { Skeleton, Icon, List, Avatar, Popconfirm, PageHeader } from 'antd';
 import { triggerPlanList } from 'actions/plans';
+import { clearBreadbrumb } from 'actions/index';
 import { formatName, displayNumber } from 'utils';
 
 const IconText = ({ type, text }) => (
@@ -22,6 +23,7 @@ class Home extends PureComponent {
 
   componentDidMount() {
     this.props.triggerPlanList();
+    this.props.clearBreadbrumb();
   }
   render() {
     const { plans: { listFetching, collection } } = this.props;
@@ -64,7 +66,7 @@ class Home extends PureComponent {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ triggerPlanList }, dispatch);
+  return bindActionCreators({ triggerPlanList, clearBreadbrumb }, dispatch);
 }
 
 function mapStateToProps({ plans }) {

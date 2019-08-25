@@ -15,17 +15,17 @@ class Plan extends PureComponent {
   };
 
   componentDidMount() {
-    const { plans: { collection } } = this.props;
+    const { plans } = this.props;
 
-    if (collection.length === 0) {
+    if (plans.length === 0) {
       // this.props.history.push("/");
     }
   }
 
   selectPlanById = id => {
-    const { collection } = this.props.plans;
+    const { plans } = this.props;
 
-    return collection.find(item => item._id === id) || {};
+    return plans.find(item => item._id === id) || {};
   }
 
   render() {
@@ -62,7 +62,7 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps({ user, plans }) {
   return {
     user,
-    plans,
+    plans: plans.collection,
   };
 }
 

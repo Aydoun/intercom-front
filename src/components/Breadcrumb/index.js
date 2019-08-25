@@ -9,7 +9,7 @@ const PageBreadcrumb = ({ routes }) => (
       <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
       {
         routes.map(route => (
-          <Breadcrumb.Item><Link to={route.path}>{route.name}</Link></Breadcrumb.Item>
+          <Breadcrumb.Item key={route.url}><Link to={route.url}>{route.name}</Link></Breadcrumb.Item>
         ))
       }
     </Breadcrumb>

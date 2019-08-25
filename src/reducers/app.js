@@ -6,16 +6,31 @@ const initialState = {
     type: 'success',
     message: '',
   },
-  appBreadCrumb: []
+  breadcrumb: []
 };
 
 function appReducer(state = initialState, action) {
   switch (action.type) {
     case C.SHOW_NOTIFCATION:
       return {
-          ...state,
-          notificationKey: state.notificationKey + 1,
-          notificationData: action.data
+        ...state,
+        notificationKey: state.notificationKey + 1,
+        notificationData: action.data
+      }
+    case C.PUSH_NEW_BREADCRUMB:
+      return {
+        ...state,
+        breadcrumb: state.breadcrumb.concat(action.payload),
+      }
+    case C.RESET_NEW_BREADCRUMB:
+      return {
+        ...state,
+        breadcrumb: [action.payload]
+      }
+    case C.CLEAR_BREADCRUMB:
+      return {
+        ...state,
+        breadcrumb: []
       }
     default:
       return state;
