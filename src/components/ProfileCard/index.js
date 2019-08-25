@@ -16,7 +16,7 @@ class Profile extends PureComponent {
         style={{ width: 300 }}
         actions={[
           <Link to="/logout">Logout</Link>,
-          <Link to="/points" >{`${displayNumber(collection.points)} Points`}</Link>
+          <Link to="/profile/points" >{`${displayNumber(collection.points)} Points`}</Link>
         ]}
         loading={fetching}
       >

@@ -28,4 +28,5 @@ export const appRoutes = {
   PROFILE: `${appBaseURL}${PROFILE_URI}`,
   PLAN: `${appBaseURL}${PLAN_URI}`,
   LOGOUT: `${appBaseURL}${LOGOUT_URI}`,
+  USERPOINTS: `${appBaseURL}${PROFILE_URI}/points`,
 };

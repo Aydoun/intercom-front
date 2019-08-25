@@ -7,6 +7,7 @@ import { updateBreadbrumb } from 'actions/index';
 import AppLayout from 'components/Layout';
 import ProfileCard from 'components/ProfileCard';
 import PageBreadcrumb from 'components/Breadcrumb';
+import { PageHeader } from 'antd';
 import Login from 'pages/Login';
 import { isLoggedIn } from 'utils';
 import routeMap from 'config/routeMap';
@@ -17,6 +18,7 @@ class PrivateRoute extends PureComponent {
     path: string,
     Menu: node,
     computedMatch: object,
+    pageTitle: string,
   };
 
   componentDidUpdate(prevProps) {
@@ -38,8 +40,9 @@ class PrivateRoute extends PureComponent {
       path,
       Menu,
       breadcrumb,
+      pageTitle,
     } = this.props;
-    
+
     return (
       <Route
         render={
@@ -50,8 +53,10 @@ class PrivateRoute extends PureComponent {
                   {Menu ? <Menu /> : <ProfileCard />}
                 </div>
                 <div className="app__page">
-                  <PageBreadcrumb routes={breadcrumb} />
-                  <Page {...props} />
+                  <PageHeader title={pageTitle || ''}>
+                    <PageBreadcrumb routes={breadcrumb} />
+                    <Page {...props} />
+                  </PageHeader>
                 </div>
               </div>
             </AppLayout> : <Login />
