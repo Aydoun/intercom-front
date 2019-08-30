@@ -7,6 +7,7 @@ const REGISTER_URI = 'register';
 const LOGOUT_URI = 'logout';
 const PROFILE_URI = 'profile';
 const PLAN_URI = 'plan/:id';
+const NOTIFICATION_URI = 'notifications';
 
 
 // api endpoints
@@ -29,4 +30,5 @@ export const appRoutes = {
   PLAN: `${appBaseURL}${PLAN_URI}`,
   LOGOUT: `${appBaseURL}${LOGOUT_URI}`,
   USERPOINTS: `${appBaseURL}${PROFILE_URI}/points`,
+  NOTIFICATIONS: `${appBaseURL}${NOTIFICATION_URI}`,
 };

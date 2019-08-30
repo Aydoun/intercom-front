@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import Profile from './pages/Profile';
 import Plan from './pages/Plans';
 import Points from './pages/Points';
+import Notifications from './pages/Notifications';
 import Logout from './pages/Logout';
 import NotFound from './components/NotFoundPage';
 
@@ -22,6 +23,7 @@ export default () => (
             <PrivateRoute path={routes.PROFILE} page={Profile} exact />
             <PrivateRoute path={routes.PLAN} page={Plan} exact />
             <PrivateRoute path={routes.USERPOINTS} page={Points} exact />
+            <PrivateRoute path={routes.NOTIFICATIONS} page={Notifications} exact />
 
             <Route path="*" component={NotFound} />
         </Switch>
