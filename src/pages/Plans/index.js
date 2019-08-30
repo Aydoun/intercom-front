@@ -6,6 +6,7 @@ import PlanFiles from './components/PlanFiles';
 import PlanHistory from './components/PlanHistory';
 import PlanSummary from './components/PlanSummary';
 import PlanDetails from './components/PlanDetails';
+import PlanDIssues from './components/Issues';
 
 const { TabPane } = Tabs;
 
@@ -44,7 +45,7 @@ class Plan extends PureComponent {
             <PlanHistory plan={plan} />
           </TabPane>
           <TabPane tab={<span><Icon type="issues-close" /> Issues</span>} key="3">
-            <div>Issues list</div>
+            <PlanDIssues />
           </TabPane>
           <TabPane tab={<span><Icon type="user" /> Contributors</span>} key="4">
             <PlanSummary plan={plan} />

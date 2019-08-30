@@ -111,6 +111,14 @@ body {
   &__details {
     flex-grow: 2;
   }
+
+  &__issues {
+    padding: 8px 0;
+    &-create {
+      margin-bottom: 20px;
+      text-align: right;
+    }
+  }
 }
 
 .profile {
