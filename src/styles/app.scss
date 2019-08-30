@@ -112,8 +112,22 @@ body {
     flex-grow: 2;
   }
 
+  &__files {
+    padding: 10px 0;
+
+    &-menu {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 25px;
+    }
+
+    &-edit {
+      margin-bottom: 10px;
+    }
+  }
+
   &__issues {
-    padding: 8px 0;
+    padding: 10px 0;
     &-create {
       margin-bottom: 20px;
       text-align: right;
