@@ -1,4 +1,5 @@
 import Objectkeys from 'object-keys';
+import { format } from 'date-fns';
 
 const numbersMapping = {
   1000: '',
@@ -39,9 +40,5 @@ export const readableDate = date => {
   const theDate = new Date(date);
   if (isNaN(theDate.getTime())) return '';
 
-  return theDate.toLocaleDateString('en-US', {  
-    day : 'numeric',
-    month : 'short',
-    year : 'numeric'
-  });
+  return format(theDate, 'MMM dd, yyyy');
 }
