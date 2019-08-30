@@ -5,7 +5,7 @@ import { Route } from 'react-router-dom';
 import { string, node, object } from 'prop-types';
 import { updateBreadbrumb } from 'actions/index';
 import AppLayout from 'components/Layout';
-import ProfileCard from 'components/ProfileCard';
+import ProfileCard from 'blocks/ProfileCard';
 import PageBreadcrumb from 'components/Breadcrumb';
 import { PageHeader } from 'antd';
 import Login from 'pages/Login';

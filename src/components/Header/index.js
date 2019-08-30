@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Icon, Input, Button, Popover, Tag } from 'antd';
 import logo from '../../logo.svg';
-import PlanForm from '../Forms/Plan';
+import PlanForm from 'blocks/AddPlan';
 
 const { Search } = Input;
 
