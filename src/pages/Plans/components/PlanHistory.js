@@ -3,7 +3,8 @@ import { object } from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Timeline, Card, Tag } from 'antd';
+import { Timeline, Tag } from 'antd';
+import Card from 'components/Card';
 import { triggerHistory } from 'actions/repository';
 import { readableDate } from 'utils';
 
@@ -30,12 +31,10 @@ class PlanHistory extends PureComponent {
                 <Timeline.Item key={item.sha} >
                   <Link to={`/history/${item.sha}`}>
                     <Card 
-                      title={item.author} 
+                      icon={item.author}
+                      text={item.comment} 
                       extra={<Tag color="geekblue">{ readableDate(item.date) }</Tag>} 
-                      hoverable 
-                      >
-                      <span>{ item.comment }</span>
-                    </Card>
+                    />  
                   </Link>
                 </Timeline.Item>
             ))

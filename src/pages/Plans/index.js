@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { array } from 'prop-types';
 import { connect } from 'react-redux';
-import { Divider, Tabs } from 'antd';
+import { Divider, Tabs, Icon } from 'antd';
 import PlanFiles from './components/PlanFiles';
 import PlanHistory from './components/PlanHistory';
 import PlanSummary from './components/PlanSummary';
@@ -37,13 +37,16 @@ class Plan extends PureComponent {
         <PlanDetails plan={plan} />
         <Divider />
         <Tabs onChange={() => { }} type="card">
-          <TabPane tab="Files" key="1">
+          <TabPane tab={<span><Icon type="file" /> Files</span>} key="1">
             <PlanFiles plan={plan} />
           </TabPane>
-          <TabPane tab="History" key="2">
+          <TabPane tab={<span><Icon type="history" /> History</span>} key="2">
             <PlanHistory plan={plan} />
           </TabPane>
-          <TabPane tab="Contributors" key="3">
+          <TabPane tab={<span><Icon type="issues-close" /> Issues</span>} key="3">
+            <div>Issues list</div>
+          </TabPane>
+          <TabPane tab={<span><Icon type="user" /> Contributors</span>} key="4">
             <PlanSummary plan={plan} />
           </TabPane>
         </Tabs>
