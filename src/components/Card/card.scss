@@ -1,0 +1,20 @@
+@import 'styles/colors.scss';
+
+.info-card {
+  padding: 15px;
+  display: flex;
+  background: $white;
+  justify-content: space-between;
+  border: 1px solid $gray;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    border-color: $greeny;
+  }
+
+  &__icon {
+    display: inline-block;
+    margin-right: 10px;
+  }
+}

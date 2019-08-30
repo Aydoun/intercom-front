@@ -1,8 +1,5 @@
-import { configure, addDecorator, setAddon } from '@storybook/react';
-// import addWithDoc from 'storybook-addon-props';
-// import '../node_modules/antd/dist/antd.min.css';
-
-// setAddon(addWithDoc);
+import { configure, addDecorator } from '@storybook/react';
+import './global.css';
 
 const stories = () => {
   const req = require.context('../src/', true, /\.stories\.js$/);
