@@ -43,7 +43,7 @@ class Home extends PureComponent {
             <List.Item
               key={item._id}
               actions={[
-                <IconText type="like-o" text={displayNumber(item.points)} key="list-vertical-like-o" />,
+                <IconText type="like-o" text={displayNumber(item.likes)} />,
                 <Popconfirm placement="bottom" key={item._id} title={"Please Confirm"} onConfirm={() => console.log(item._id)} >
                   <Icon type="delete" style={{ color: 'crimson' }} />
                 </Popconfirm>,
