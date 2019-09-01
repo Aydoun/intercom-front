@@ -26,7 +26,7 @@ class Home extends PureComponent {
     this.props.clearBreadbrumb();
   }
   render() {
-    const { plans: { listFetching, collection } } = this.props;
+    const { plans: { listFetching, collection, total } } = this.props;
 
     return (
       <Skeleton loading={listFetching} active avatar>
@@ -35,7 +35,8 @@ class Home extends PureComponent {
             onChange: page => {
               console.log(page);
             },
-            pageSize: 10,
+            total,
+            simple: true
           }}
           dataSource={collection}
           renderItem={item => (

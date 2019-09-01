@@ -1,9 +1,9 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { object, bool } from 'prop-types';
+import { object, bool, func } from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
-import { triggerFiles } from 'actions/repository';
+import { triggerFiles, triggerBranchList } from 'actions/repository';
 import { Table, Tag, Divider, Icon, Button, Menu, Dropdown } from 'antd';
 import { readableDate } from 'utils';
 
@@ -72,13 +72,27 @@ class PlanFiles extends PureComponent {
   static propTypes = {
     plan: object,
     fetching: bool,
+    triggerFiles: func,
+    triggerBranchList: func,
   };
 
   componentDidMount() {
-    const { plan } = this.props;
+    const { plan, triggerBranchList, triggerFiles } = this.props;
 
     const bPlab = Object.keys(plan).length > 0 ? plan : { repoName: 'c6975c80-c19f-11e9-9875-5ded6f48e86c' };
-    this.props.triggerFiles({ repoName: bPlab.repoName });
+    triggerFiles({ repoName: bPlab.repoName });
+    triggerBranchList({ repoName: bPlab.repoName });
+  }
+
+  get makeBranchList() {
+    const { branchList } = this.props;
+    console.log('branchList', branchList);
+
+    return (
+      <Menu>
+        { branchList.map((branch, index) => <Menu.Item key={index}><Icon type="branches"/> {branch}</Menu.Item>) }
+      </Menu>
+    );
   }
 
   render() {
@@ -87,7 +101,7 @@ class PlanFiles extends PureComponent {
     return (
       <div className="plans__files">
         <div className="plans__files-menu">
-          <Dropdown overlay={menu} trigger={['click']}>
+          <Dropdown overlay={this.makeBranchList} trigger={['click']}>
             <Button icon="branches">
               Drafts <Icon type="down" />
             </Button>
@@ -115,13 +129,14 @@ class PlanFiles extends PureComponent {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ triggerFiles }, dispatch);
+  return bindActionCreators({ triggerFiles, triggerBranchList }, dispatch);
 }
 
-function mapStateToProps({ repository }) {
+function mapStateToProps({ repository: { files, fetching, branchList } }) {
   return {
-    repoFiles: repository.files,
-    fetching: repository.fetching,
+    repoFiles: files,
+    fetching,
+    branchList,
   };
 }
 

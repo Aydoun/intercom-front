@@ -48,10 +48,25 @@ export function* getSummary({ payload }) {
   }
 }
 
+function* getBranches({ payload }) {
+  const options = {
+    method: 'GET',
+    url: `${endpoints.REPOSITORY}/${payload.repoName}/branch`,
+  };
+
+  try {
+    const res = yield call(request, options);
+    yield put(A.saveBranchList(res));
+  } catch (err) {
+    yield put(showError('error', 'Error While Loading Your Drafts'));
+  }
+}
+
 export default function* root() {
   yield all([
     takeLatest(C.REPOSITORY_HISTORY_PENDING, getHistory),
     takeLatest(C.REPOSITORY_FILES_PENDING, getFiles),
     takeLatest(C.REPOSITORY_SUMMARY_PENDING, getSummary),
+    takeLatest(C.REPOSITORY_BRANCHES_LIST_PENDING, getBranches),
   ]);
 }

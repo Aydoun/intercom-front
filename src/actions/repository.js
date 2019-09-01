@@ -29,3 +29,14 @@ export const saveSummary = payload => ({
   type: C.REPOSITORY_SUMMARY_FULLFILLED,
   payload,
 });
+
+
+export const triggerBranchList = payload => ({
+  type: C.REPOSITORY_BRANCHES_LIST_PENDING,
+  payload,
+});
+
+export const saveBranchList = payload => ({
+  type: C.REPOSITORY_BRANCHES_LIST_FULLFILLED,
+  payload,
+});

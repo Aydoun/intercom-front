@@ -5,8 +5,10 @@ const initialState = {
   history: [],
   files: [],
   summary: {
+    fetching: false,
     contributors: {},
-  }
+  },
+  branchList: [],
 };
 
 export default (state = initialState, action) => {
@@ -43,6 +45,18 @@ export default (state = initialState, action) => {
         ...state,
         fetching: false,
         summary: action.payload,
+      };
+
+    case C.REPOSITORY_BRANCHES_LIST_PENDING:
+      return {
+        ...state,
+        fetching: true,
+      };
+    case C.REPOSITORY_BRANCHES_LIST_FULLFILLED:
+      return {
+        ...state,
+        fetching: false,
+        branchList: action.payload,
       };
     default:
       return state;
