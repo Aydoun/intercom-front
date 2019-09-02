@@ -2,9 +2,11 @@ import React, { PureComponent } from 'react';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Timeline, Tag, Icon, Button, Empty, Modal } from 'antd';
+import { Timeline, Tag, Icon, Button, Empty } from 'antd';
 import { triggerIssuesList } from 'actions/plans';
+import { setIssueDrawerVisibility } from 'actions/app';
 import Card from 'components/Card';
+import FormDrawer from 'blocks/AddIssue';
 import { readableDate } from 'utils';
 
 class PlanIssues extends PureComponent {
@@ -25,7 +27,7 @@ class PlanIssues extends PureComponent {
   }
 
   openIssueModalForm = () => {
-    this.setState({ modalOpened: true });
+    this.props.setIssueDrawerVisibility(true);
   }
 
   saveIssue = () => {
@@ -60,23 +62,14 @@ class PlanIssues extends PureComponent {
             <Empty />
           )
         }
-        <Modal
-          title="Basic Modal"
-          visible={this.state.modalOpened}
-          onOk={this.saveIssue}
-          onCancel={this.hideModal}
-        >
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-        </Modal>
+        <FormDrawer />
       </div>
     );
   }
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ triggerIssuesList }, dispatch);
+  return bindActionCreators({ triggerIssuesList, setIssueDrawerVisibility }, dispatch);
 }
 
 function mapStateToProps({ plans }) {

@@ -6,7 +6,8 @@ const initialState = {
     type: 'success',
     message: '',
   },
-  breadcrumb: []
+  breadcrumb: [],
+  issueDrawerVisible: false,
 };
 
 function appReducer(state = initialState, action) {
@@ -31,6 +32,12 @@ function appReducer(state = initialState, action) {
       return {
         ...state,
         breadcrumb: []
+      }
+    case C.TOGGLE_ISSUE_DRAWER:
+      console.log('action.payload', action.payload);
+      return {
+        ...state,
+        issueDrawerVisible: action.payload,
       }
     default:
       return state;

@@ -19,7 +19,7 @@ class Plan extends PureComponent {
     const { plans } = this.props;
 
     if (plans.length === 0) {
-      this.props.history.push("/");
+      // this.props.history.push("/");
     }
   }
 
