@@ -10,6 +10,11 @@ export const triggerPlanList = payload => ({
     payload,
 });
 
+export const triggerIssuesList = payload => ({
+    type: C.PLAN_ISSUE_LIST_PENDING,
+    payload,
+});
+
 export const createPlan = payload => ({
     type: C.PLAN_CREATE_FULLFILLED,
     payload,
@@ -17,5 +22,10 @@ export const createPlan = payload => ({
 
 export const savePlanList = payload => ({
     type: C.PLAN_LIST_FULLFILLED,
+    payload,
+});
+
+export const saveIssuesList = payload => ({
+    type: C.PLAN_ISSUE_LIST_FULLFILLED,
     payload,
 });

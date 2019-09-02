@@ -79,20 +79,16 @@ class PlanFiles extends PureComponent {
   componentDidMount() {
     const { plan, triggerBranchList, triggerFiles } = this.props;
 
-    const bPlab = Object.keys(plan).length > 0 ? plan : { repoName: 'c6975c80-c19f-11e9-9875-5ded6f48e86c' };
-    triggerFiles({ repoName: bPlab.repoName });
-    triggerBranchList({ repoName: bPlab.repoName });
+    if (plan.repoName) {
+      triggerFiles({ repoName: plan.repoName });
+      triggerBranchList({ repoName: plan.repoName });
+    }
   }
 
   get makeBranchList() {
     const { branchList } = this.props;
-    console.log('branchList', branchList);
 
-    return (
-      <Menu>
-        { branchList.map((branch, index) => <Menu.Item key={index}><Icon type="branches"/> {branch}</Menu.Item>) }
-      </Menu>
-    );
+    return (<Menu>{branchList.map((branch, index) => <Menu.Item key={index}><Icon type="branches"/> {branch}</Menu.Item>)}</Menu>);
   }
 
   render() {

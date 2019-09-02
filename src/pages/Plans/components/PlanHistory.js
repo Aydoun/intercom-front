@@ -16,8 +16,9 @@ class PlanHistory extends PureComponent {
   componentDidMount() {
     const { plan } = this.props;
 
-    const bPlab = Object.keys(plan).length > 0 ? plan : { repoName: 'c6975c80-c19f-11e9-9875-5ded6f48e86c' };
-    this.props.triggerHistory({ repoName: bPlab.repoName });
+    if (plan.repoName) {
+      this.props.triggerHistory({ repoName: plan.repoName });
+    }
   }
 
   render() {

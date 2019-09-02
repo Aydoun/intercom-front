@@ -5,7 +5,7 @@ import * as A from 'actions/plans';
 import { endpoints } from 'config';
 import request from 'utils/request';
 
-export function* PersistPlan({ payload }) {
+function* PersistPlan({ payload }) {
   const options = {
     method: 'POST',
     url: endpoints.PLANS,
@@ -22,7 +22,7 @@ export function* PersistPlan({ payload }) {
   }
 }
 
-export function* ListPlans() {
+function* ListPlans() {
   const options = {
     method: 'GET',
     url: `${endpoints.USER}/plans`,
@@ -38,9 +38,28 @@ export function* ListPlans() {
   }
 }
 
+function* ListIssues({ payload }) {
+  const options = {
+    method: 'GET',
+    url: `${endpoints.PLANS}/${payload.id}/issues`,
+  };
+  let res;
+
+  try {
+    res = yield call(request, options);
+    // yield put(A.saveIssuesList(res));
+    
+  } catch (err) {
+    yield put(showError('error', 'Server Error, please try again!'));
+  } finally {
+    yield put(A.saveIssuesList(res || []));
+  }
+}
+
 export default function* root() {
   yield all([
     takeLatest(C.PLAN_CREATE_PENDING, PersistPlan),
     takeLatest(C.PLAN_LIST_PENDING, ListPlans),
+    takeLatest(C.PLAN_ISSUE_LIST_PENDING, ListIssues),
   ]);
 }

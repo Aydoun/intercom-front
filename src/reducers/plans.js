@@ -3,7 +3,9 @@ import * as C from 'constants/plans';
 const initialState = {
   fetching: false,
   listFetching: false,
+  issueFetching: false,
   collection: [],
+  issues: [],
 };
 
 export default (state = initialState, action) => {
@@ -18,6 +20,11 @@ export default (state = initialState, action) => {
         ...state,
         listFetching: true,
       };
+    case C.PLAN_ISSUE_LIST_PENDING:
+      return {
+        ...state,
+        issueFetching: true,
+      };
     case C.PLAN_CREATE_FULLFILLED:
       return {
         ...state,
@@ -25,12 +32,18 @@ export default (state = initialState, action) => {
         collection: state.collection.concat(action.payload),
       };
     case C.PLAN_LIST_FULLFILLED:
-      const { docs, ...rest } = action.payload;
+      let { docs, ...rest } = action.payload;
       return {
         ...state,
         listFetching: false,
         collection: docs,
         ...rest,
+      };
+    case C.PLAN_ISSUE_LIST_FULLFILLED:
+      return {
+        ...state,
+        issueFetching: false,
+        issues: action.payload,
       };
     default:
       return state;
