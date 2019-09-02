@@ -23,13 +23,15 @@ export default (state = initialState, action) => {
         ...state,
         fetching: false,
         collection: state.collection.concat(action.payload),
-      }
+      };
     case C.PLAN_LIST_FULLFILLED:
+      const { docs, ...rest } = action.payload;
       return {
         ...state,
         listFetching: false,
-        collection: action.payload,
-      }
+        collection: docs,
+        ...rest,
+      };
     default:
       return state;
   }

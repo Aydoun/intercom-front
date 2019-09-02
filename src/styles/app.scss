@@ -29,14 +29,23 @@ body {
   &__logo {
     line-height: 50px;
   }
+
+  &__tab {
+    margin: 0 8px;
+  }
+
+  &__breadcrumb {
+    margin-bottom: 20px;
+  }
 }
 
 .header {
-  background: $dark;
+  background: $white;
   padding: 0 50px;
   height: 52px;
   display: flex;
   justify-content: space-between;
+  box-shadow: 0px 0px 8px 2px $gray;
 
   &-text {
     color: $white;
@@ -48,11 +57,11 @@ body {
     align-self: center;
     display: flex;
 
-    &-icon {
-      font-size: 30px;
-      color: $white;
-      opacity: 0.9;
-      margin-left: 8px;
+    &-tag {
+      font-size: 13px;
+      padding: 5px;
+      cursor: pointer;
+      opacity: 0.8;
 
       &:hover {
         opacity: 1;
@@ -86,5 +95,48 @@ body {
 .plans {
   &__creation-form {
     min-width: 400px;
+  }
+
+  &__overview {
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  &__avatar-uploader {
+    cursor: pointer;
+    align-self: center;
+    margin-right: 25px;
+  }
+
+  &__details {
+    flex-grow: 2;
+  }
+
+  &__files {
+    padding: 10px 0;
+
+    &-menu {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 25px;
+    }
+
+    &-edit {
+      margin-bottom: 10px;
+    }
+  }
+
+  &__issues {
+    padding: 10px 0;
+    &-create {
+      margin-bottom: 20px;
+      text-align: right;
+    }
+  }
+}
+
+.profile {
+  &__avatar-uploader {
+    cursor: pointer;
   }
 }
