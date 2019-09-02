@@ -5,7 +5,7 @@ import * as A from 'actions/repository';
 import { endpoints } from 'config';
 import request from 'utils/request';
 
-export function* getHistory({ payload }) {
+function* getHistory({ payload }) {
   const options = {
     method: 'GET',
     url: `${endpoints.REPOSITORY}/${payload.repoName}/history?branch=master`,
@@ -20,7 +20,7 @@ export function* getHistory({ payload }) {
   }
 }
 
-export function* getFiles({ payload }) {
+function* getFiles({ payload }) {
   const options = {
     method: 'GET',
     url: `${endpoints.REPOSITORY}/${payload.repoName}/tree?branch=master`,
@@ -34,7 +34,7 @@ export function* getFiles({ payload }) {
   }
 }
 
-export function* getSummary({ payload }) {
+function* getSummary({ payload }) {
   const options = {
     method: 'GET',
     url: `${endpoints.REPOSITORY}/${payload.repoName}/summary?repoId=${payload.id}`,

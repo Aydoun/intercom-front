@@ -7,7 +7,7 @@ import { saveToken } from 'utils';
 
 import request from 'utils/request';
 
-export function* userLogin(userInfo) {
+function* userLogin(userInfo) {
   const options = {
     method: 'POST',
     url: endpoints.LOGIN,
@@ -26,7 +26,7 @@ export function* userLogin(userInfo) {
   }
 }
 
-export function* userRegister(userInfo) {
+function* userRegister(userInfo) {
   const options = {
     method: 'POST',
     url: endpoints.REGISTER,

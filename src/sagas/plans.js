@@ -47,8 +47,7 @@ function* ListIssues({ payload }) {
 
   try {
     res = yield call(request, options);
-    // yield put(A.saveIssuesList(res));
-    
+
   } catch (err) {
     yield put(showError('error', 'Server Error, please try again!'));
   } finally {

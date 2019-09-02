@@ -9,3 +9,8 @@ export const saveUser = payload => ({
     type: C.USER_FETCH_FULLFILLED,
     payload,
 });
+
+export const sendFeedback = payload => ({
+    type: C.SEND_FEEDBACK,
+    payload,
+});
