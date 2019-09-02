@@ -8,6 +8,7 @@ const initialState = {
   },
   breadcrumb: [],
   issueDrawerVisible: false,
+  feedbackDrawerVisible: false,
 };
 
 function appReducer(state = initialState, action) {
@@ -34,10 +35,14 @@ function appReducer(state = initialState, action) {
         breadcrumb: []
       }
     case C.TOGGLE_ISSUE_DRAWER:
-      console.log('action.payload', action.payload);
       return {
         ...state,
         issueDrawerVisible: action.payload,
+      }
+    case C.TOGGLE_FEEDBACK_DRAWER:
+      return {
+        ...state,
+        feedbackDrawerVisible: action.payload,
       }
     default:
       return state;

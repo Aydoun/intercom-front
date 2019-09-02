@@ -3,20 +3,20 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Drawer, Form, Button, Col, Row, Input, Icon } from 'antd';
 import { sendFeedback } from 'actions/user';
+import { setFeedbackDrawerVisibility } from 'actions/app';
 
 class FeedbackForm extends PureComponent {
   state = { visible: false };
 
   onClose = () => {
-    this.props.setIssueDrawerVisibility(false);
+    this.props.setFeedbackDrawerVisibility(false);
   };
 
   onSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, fieldsValue) => {
       if (!err) {
-        console.log('fieldsValue', fieldsValue);
-        this.props.form.resetFields();
+        this.props.sendFeedback(fieldsValue);
       }
     });
   }
@@ -30,27 +30,27 @@ class FeedbackForm extends PureComponent {
           title={<span><Icon type="customer-service" /> What's on your mind?</span>}
           width={420}
           onClose={this.onClose}
-          visible={true}
-          placement="right"
+          visible={this.props.visible}
+          placement="left"
         >
-          <Form layout="vertical" hideRequiredMark>
+          <Form layout="vertical">
             <Row gutter={16}>
               <Col span={24}>
-                <Form.Item label="">
+                <Form.Item label="Express yourself">
                   {getFieldDecorator('message', {
                     rules: [
                       {
                         required: true,
-                        message: 'please enter a description',
+                        message: 'Please enter a message',
                       },
                     ],
-                  })(<Input.TextArea rows={4} />)}
+                  })(<Input.TextArea rows={4} placeholder="..." />)}
                 </Form.Item>
               </Col>
             </Row>
           </Form>
           <div style={{ textAlign: 'right' }}>
-            <Button icon="rollback" onClick={this.onClose} style={{ marginRight: 8 }}>
+            <Button icon="close" onClick={this.onClose} style={{ marginRight: 8 }}>
               Cancel
             </Button>
             <Button icon="save" onClick={this.onSubmit} type="primary">
@@ -64,12 +64,12 @@ class FeedbackForm extends PureComponent {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ sendFeedback }, dispatch);
+  return bindActionCreators({ sendFeedback, setFeedbackDrawerVisibility }, dispatch);
 }
 
 function mapStateToProps({ app }) {
   return {
-    visible: app.issueDrawerVisible
+    visible: app.feedbackDrawerVisible
   };
 }
 

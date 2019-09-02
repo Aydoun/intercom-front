@@ -2,6 +2,7 @@ import { all, takeLatest, call, put } from 'redux-saga/effects';
 import * as C from 'constants/user';
 import { showError } from 'actions/index';
 import * as A from 'actions/user';
+import { setFeedbackDrawerVisibility } from 'actions/app';
 import { endpoints } from 'config';
 import request from 'utils/request';
 
@@ -20,17 +21,17 @@ function* PersistUser(userInfo) {
   }
 }
 
-function* PersistFeedback(payload) {
+function* PersistFeedback({ payload }) {
   const options = {
     method: 'POST',
     url: endpoints.FEEDBACK,
     data: payload
   };
 
-  console.log('payload', payload);
-
   try {
-    // const res = yield call(request, options);
+    yield call(request, options);
+    yield put(showError('success', 'Thank you for your feedback'));
+    yield put(setFeedbackDrawerVisibility(false));
   } catch (err) {
     yield put(showError('error', 'Couldn\'t send your feedback, please try later'));
   }

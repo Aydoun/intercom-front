@@ -34,7 +34,7 @@ class IssuesForm extends PureComponent {
           visible={this.props.visible}
           placement="right"
         >
-          <Form layout="vertical" hideRequiredMark>
+          <Form layout="vertical">
             <Row gutter={16}>
               <Col span={12}>
                 <Form.Item label="Title">
@@ -68,10 +68,10 @@ class IssuesForm extends PureComponent {
             </Row>
           </Form>
           <div style={{ textAlign: 'right' }}>
-            <Button onClick={this.onClose} style={{ marginRight: 8 }}>
+            <Button icon="close" onClick={this.onClose} style={{ marginRight: 8 }}>
               Cancel
             </Button>
-            <Button onClick={this.onSubmit} type="primary">
+            <Button icon="save" onClick={this.onSubmit} type="primary">
               Submit
             </Button>
           </div>

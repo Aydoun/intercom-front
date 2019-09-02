@@ -5,3 +5,8 @@ export const setIssueDrawerVisibility = payload => ({
     payload,
 });
 
+export const setFeedbackDrawerVisibility = payload => ({
+    type: C.TOGGLE_FEEDBACK_DRAWER,
+    payload,
+});
+
