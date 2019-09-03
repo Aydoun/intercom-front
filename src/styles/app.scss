@@ -63,6 +63,11 @@ body {
     }
   }
 
+  &__avatar {
+    color: $black;
+    background-color: $geekblue;
+  }
+
   &__menu {
     &-crown {
       font-size: 22px;
@@ -73,11 +78,6 @@ body {
     &-points {
       color: $mustard;
       font-weight: 700;
-    }
-
-    &-avatar {
-      color: $black;
-      background-color: $geekblue;
     }
   }
 }
@@ -181,5 +181,15 @@ body {
 .profile {
   &__avatar-uploader {
     cursor: pointer;
+  }
+}
+
+.global {
+  &__left-margin {
+    margin-left: 5px;
+  }
+
+  &__right-margin {
+    margin-right: 5px;
   }
 }

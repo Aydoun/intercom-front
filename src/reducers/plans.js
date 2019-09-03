@@ -45,6 +45,13 @@ export default (state = initialState, action) => {
         issueFetching: false,
         issues: action.payload,
       };
+    case C.PLAN_LIKE_FULLFILLED:
+      const { newCollection } = action.payload;
+
+      return {
+        ...state,
+        collection: newCollection,
+      };
     default:
       return state;
   }

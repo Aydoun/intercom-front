@@ -36,7 +36,7 @@ class Profile extends PureComponent {
         >
           <Meta
             avatar={<Link to="/profile">
-              <Avatar className="app__menu-avatar" size={64} src={collection.avatar}>
+              <Avatar className="app__avatar" size={64} src={collection.avatar}>
                 {formatName(collection.name)}
               </Avatar>
             </Link>}

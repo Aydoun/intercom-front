@@ -1,4 +1,4 @@
-import { all, takeLatest, call, put } from 'redux-saga/effects';
+import { all, takeLatest, call, put, select } from 'redux-saga/effects';
 import * as C from 'constants/plans';
 import { showError } from 'actions/index';
 import * as A from 'actions/plans';
@@ -55,10 +55,36 @@ function* ListIssues({ payload }) {
   }
 }
 
+function* like({ payload: planId }) {
+  const options = {
+    method: 'PUT',
+    url: `${endpoints.PLANS}/${planId}/like`,
+  };
+
+  try {
+    const res = yield call(request, options);
+
+    const newCollection = yield select(state => state.plans.collection);
+    const planIndex = newCollection.findIndex(item => item._id === planId);
+
+    if (planIndex > -1 && res.likes !== newCollection[planIndex].likes) {
+      let plan = newCollection[planIndex];
+      plan.likes = res.likes;
+      newCollection.splice(planIndex, 1, plan);
+
+      yield put(A.updateLike({ newCollection }));
+    }
+  } catch (err) {
+    yield put(showError('error', 'Server Error, please try again!'));
+  } 
+}
+
+
 export default function* root() {
   yield all([
     takeLatest(C.PLAN_CREATE_PENDING, PersistPlan),
     takeLatest(C.PLAN_LIST_PENDING, ListPlans),
     takeLatest(C.PLAN_ISSUE_LIST_PENDING, ListIssues),
+    takeLatest(C.PLAN_LIKE_PENDING, like),
   ]);
 }
