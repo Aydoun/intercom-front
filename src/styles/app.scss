@@ -37,6 +37,49 @@ body {
   &__breadcrumb {
     margin-bottom: 20px;
   }
+
+  &__feedback {
+    position: fixed;
+    top: 50%;
+    left: 0;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    cursor: pointer;
+    opacity: 0.8;
+    transition: 0.3s ease;
+
+    &-button {
+      background: $greeny;
+      color: $white;
+      pointer-events: none;
+      font-weight: 700;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &__menu {
+    &-crown {
+      font-size: 22px;
+      color: $mustard;
+      margin-right: 5px;
+    }
+
+    &-points {
+      color: $mustard;
+      font-weight: 700;
+    }
+
+    &-avatar {
+      color: $black;
+      background-color: $geekblue;
+    }
+  }
 }
 
 .header {

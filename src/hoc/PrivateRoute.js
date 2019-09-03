@@ -4,10 +4,11 @@ import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import { string, node, object } from 'prop-types';
 import { updateBreadbrumb } from 'actions/index';
+import { setFeedbackDrawerVisibility } from 'actions/app';
 import AppLayout from 'components/Layout';
 import ProfileCard from 'blocks/ProfileCard';
 import PageBreadcrumb from 'components/Breadcrumb';
-import { PageHeader } from 'antd';
+import { PageHeader, Button } from 'antd';
 import Login from 'pages/Login';
 import { isLoggedIn } from 'utils';
 import routeMap from 'config/routeMap';
@@ -34,6 +35,10 @@ class PrivateRoute extends PureComponent {
     }
   }
 
+  showFeedbackForm = () => {
+    this.props.setFeedbackDrawerVisibility(true);
+  }
+
   render() {
     const {
       page: Page,
@@ -49,7 +54,7 @@ class PrivateRoute extends PureComponent {
           props => isLoggedIn() ?
             <AppLayout>
               <div className="app__container">
-                <div className="app_menu">
+                <div className="app__menu">
                   {Menu ? <Menu /> : <ProfileCard />}
                 </div>
                 <div className="app__page">
@@ -57,6 +62,16 @@ class PrivateRoute extends PureComponent {
                     <PageBreadcrumb routes={breadcrumb} />
                     <Page {...props} />
                   </PageHeader>
+                </div>
+                <div className="app__feedback" onClick={this.showFeedbackForm}>
+                    <Button 
+                      type="link" 
+                      className="app__feedback-button" 
+                      icon="customer-service"
+                      size="small"
+                    >
+                      Feedback
+                    </Button>
                 </div>
               </div>
             </AppLayout> : <Login />
@@ -69,7 +84,7 @@ class PrivateRoute extends PureComponent {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ updateBreadbrumb }, dispatch);
+  return bindActionCreators({ updateBreadbrumb, setFeedbackDrawerVisibility }, dispatch);
 }
 
 function mapStateToProps({ app }) {
