@@ -19,6 +19,7 @@ export const endpoints = {
   USER: `${hostBase}/user`,
   REPOSITORY: `${hostBase}/repository`,
   FEEDBACK: `${hostBase}/feedback`,
+  IMAGEUPLOAD: `${hostBase}/files/upload/image`,
 };
 
 export const appBaseURL = '/';
