@@ -13,7 +13,6 @@ class Notifications extends PureComponent {
 
   }
 
-
   render() {
     const notifications = [{ title: 'this is an invitation', id: 1, date: '2019-02-23' }, 
     { title: 'this is an another invitation', id: 2, date: '2019-02-23' }];

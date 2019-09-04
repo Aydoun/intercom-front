@@ -18,14 +18,11 @@ const defaultUploadProps = {
 };
 
 class Profile extends PureComponent {
-  state = {
-    userAvatar: '',
-  };
-
   onChange = (info) => {
+    const { showError, saveUser, user: { collection } } = this.props;
+
     if (info.file.status === 'done') {
-      const { response: serviceResponse, status } = info.file.response;
-      const { showError, saveUser, user: { collection } } = this.props;
+      const { response: serviceResponse, status } = info.file.response;  
       if (status) {
         saveUser({...collection, avatar: serviceResponse.url});
       } else {
@@ -47,7 +44,7 @@ class Profile extends PureComponent {
             onChange={this.onChange}
             {...defaultUploadProps}
           >
-            <Avatar size={128} src={this.state.userAvatar || collection.avatar} icon="user" />
+            <Avatar size={128} src={collection.avatar} icon="user" />
           </Upload>
           <Divider />
         </div>

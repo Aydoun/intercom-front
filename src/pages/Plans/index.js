@@ -1,7 +1,10 @@
 import React, { PureComponent } from 'react';
 import { array } from 'prop-types';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Divider, Tabs, Icon } from 'antd';
+import { showError } from 'actions/index';
+
 import PlanFiles from './components/PlanFiles';
 import PlanHistory from './components/PlanHistory';
 import PlanSummary from './components/PlanSummary';
@@ -19,7 +22,7 @@ class Plan extends PureComponent {
     const { plans } = this.props;
 
     if (plans.length === 0) {
-      // this.props.history.push("/");
+      this.props.history.push("/");
     }
   }
 
@@ -34,7 +37,7 @@ class Plan extends PureComponent {
 
     return (
       <div className="plans">
-        <PlanDetails plan={plan} />
+        <PlanDetails plan={plan} showError={this.props.showError} />
         <Divider />
         <Tabs onChange={() => { }} type="card">
           <TabPane tab={<span><Icon type="file" /> Files</span>} key="1">
@@ -56,7 +59,7 @@ class Plan extends PureComponent {
 }
 
 function mapDispatchToProps(dispatch) {
-  return {};
+  return bindActionCreators({ showError }, dispatch);
 }
 
 function mapStateToProps({ user, plans }) {

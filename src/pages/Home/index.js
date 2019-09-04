@@ -49,7 +49,13 @@ class Home extends PureComponent {
             >
               <List.Item.Meta
                 avatar={<Link to={`/plan/${item._id}`}>
-                  <Avatar className="app__avatar" size="large">{formatName(item.title)}</Avatar>
+                  <Avatar 
+                    src={item.avatar} 
+                    className="app__avatar" 
+                    size="large"
+                  >
+                    {formatName(item.title)}
+                  </Avatar>
                 </Link>}
                 title={<Link to={`/plan/${item._id}`}>{item.title}</Link>}
                 description={item.description}
