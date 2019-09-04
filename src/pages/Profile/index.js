@@ -10,7 +10,7 @@ import { endpoints } from 'config';
 
 const defaultUploadProps = {
   name: 'file',
-  action:`${endpoints.IMAGEUPLOAD}?token=${getToken()}`,
+  action:`${endpoints.IMAGEUPLOAD}?token=${getToken()}&type=user`,
   headers: {
     authorization: 'authorization-text',
   },

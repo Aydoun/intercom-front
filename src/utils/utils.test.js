@@ -21,6 +21,8 @@ test('Should returns the correct name format', () => {
 test('Should print the correct points amount', () => {
   expect(displayNumber(null)).toEqual('-');
   expect(displayNumber(undefined)).toEqual('-');
+  expect(displayNumber(false)).toEqual('-');
+  expect(displayNumber(true)).toEqual('-');
   expect(displayNumber([])).toEqual('-');
   expect(displayNumber('')).toEqual('-');
 
