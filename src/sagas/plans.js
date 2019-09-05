@@ -33,7 +33,7 @@ function* ListPlans() {
     yield put(A.savePlanList(res));
     
   } catch (err) {
-    yield put(showError('error', 'Server Error, please try again!'));
+    yield put(showError('error', 'Server Error, please try again'));
     yield put(A.savePlanList([]));
   }
 }
@@ -49,7 +49,7 @@ function* ListIssues({ payload }) {
     res = yield call(request, options);
 
   } catch (err) {
-    yield put(showError('error', 'Server Error, please try again!'));
+    yield put(showError('error', 'Server Error, please try again'));
   } finally {
     yield put(A.saveIssuesList(res || []));
   }
@@ -75,7 +75,21 @@ function* like({ payload: planId }) {
       yield put(A.updateLike({ newCollection }));
     }
   } catch (err) {
-    yield put(showError('error', 'Server Error, please try again!'));
+    yield put(showError('error', 'Server Error, please try again'));
+  } 
+}
+
+function* addFile({ payload }) {
+  const options = {
+    method: 'POST',
+    url: `${endpoints.FILES}/${payload.type === 'file' ? 'addFile' : 'addDir'}`,
+    data: payload,
+  };
+
+  try {
+    yield call(request, options);
+  } catch (err) {
+    yield put(showError('error', 'Unexpected Error, please try again'));
   } 
 }
 
@@ -86,5 +100,6 @@ export default function* root() {
     takeLatest(C.PLAN_LIST_PENDING, ListPlans),
     takeLatest(C.PLAN_ISSUE_LIST_PENDING, ListIssues),
     takeLatest(C.PLAN_LIKE_PENDING, like),
+    takeLatest(C.PLAN_ADD_FILE_PENDING, addFile),
   ]);
 }

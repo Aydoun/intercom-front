@@ -4,6 +4,7 @@ import { object, bool, func } from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import { triggerFiles, triggerBranchList } from 'actions/repository';
+import { triggerFileAddition } from 'actions/plans';
 import { Table, Tag, Divider, Icon, Button, Menu, Dropdown, Popover, Input } from 'antd';
 import { readableDate } from 'utils';
 
@@ -32,6 +33,13 @@ const columns = [
       <Tag color="geekblue">
         {readableDate(date)}
       </Tag>
+    ),
+  },
+  {
+    title: 'Comment',
+    key: 'comment',
+    render: date => (
+      <span>Comment</span>
     ),
   },
   {
@@ -96,19 +104,19 @@ class PlanFiles extends PureComponent {
     return (<Menu>{branchList.map((branch, index) => <Menu.Item key={index}><Icon type="branches" /> {branch}</Menu.Item>)}</Menu>);
   }
 
-  addFile = type => () => {
+  addFile = type => async () => {
+    const { plan } = this.props;
     const { fileName } = this.state;
 
-    if (fileName) {
-      const now = new Date();
+    this.props.triggerFileAddition({ fileName, repoName: plan.repoName, type, dirName: fileName });
 
+    if (fileName) {
       const newFile = {
-        date: now.toISOString(),
         isDirectory: type === 'dir',
         isFile: type === 'file',
-        key: now.getTime(),
+        key: new Date().getTime(),
         name: fileName,
-      }
+      };
 
       this.setState(prevState => {
         return {
@@ -119,7 +127,7 @@ class PlanFiles extends PureComponent {
     }
   }
 
-  saveFileName = e => this.setState({ fileName: e.target.value });
+  savefileName = e => this.setState({ fileName: e.target.value });
 
   getFileForm = type => {
     return (
@@ -127,7 +135,7 @@ class PlanFiles extends PureComponent {
         <Input
           placeholder="choose a name"
           value={this.state.fileName}
-          onChange={this.saveFileName}
+          onChange={this.savefileName}
         />
         <Button
           type="primary"
@@ -192,7 +200,7 @@ class PlanFiles extends PureComponent {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ triggerFiles, triggerBranchList }, dispatch);
+  return bindActionCreators({ triggerFiles, triggerBranchList, triggerFileAddition }, dispatch);
 }
 
 function mapStateToProps({ repository: { files, fetching, branchList } }) {

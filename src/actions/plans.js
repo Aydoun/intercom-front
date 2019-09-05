@@ -20,6 +20,11 @@ export const triggerLike = payload => ({
     payload,
 });
 
+export const triggerFileAddition = payload => ({
+  type: C.PLAN_ADD_FILE_PENDING,
+  payload,
+});
+
 export const createPlan = payload => ({
     type: C.PLAN_CREATE_FULLFILLED,
     payload,
