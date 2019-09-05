@@ -24,6 +24,7 @@ body {
     background: #fff;
     padding: 15px;
     border-radius: 7px;
+    min-height: 100vh;
   }
 
   &__logo {
@@ -166,6 +167,15 @@ body {
 
     &-edit {
       margin-bottom: 10px;
+    }
+
+    &-add {
+      text-align: right;
+      padding: 0px 15px;
+    }
+
+    &-add-button {
+      margin-top: 15px;
     }
   }
 

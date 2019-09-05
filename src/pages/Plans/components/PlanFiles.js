@@ -4,7 +4,7 @@ import { object, bool, func } from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import { triggerFiles, triggerBranchList } from 'actions/repository';
-import { Table, Tag, Divider, Icon, Button, Menu, Dropdown } from 'antd';
+import { Table, Tag, Divider, Icon, Button, Menu, Dropdown, Popover, Input } from 'antd';
 import { readableDate } from 'utils';
 
 const columns = [
@@ -15,9 +15,9 @@ const columns = [
     sorter: (a, b) => a.name.length - b.name.length,
     render: (text, record) => (
       <Fragment>
-        <Icon 
-          type={`${record.isDirectory ? 'folder' :  'file-text'}`} 
-          theme={`${record.isDirectory ? 'filled' : ''}`} 
+        <Icon
+          type={`${record.isDirectory ? 'folder' : 'file-text'}`}
+          theme={`${record.isDirectory ? 'filled' : ''}`}
         />&nbsp;&nbsp;
         <Link to="/">{text}</Link>
       </Fragment>
@@ -30,7 +30,7 @@ const columns = [
     sorter: (a, b) => new Date(b) - new Date(a),
     render: date => (
       <Tag color="geekblue">
-        { readableDate(date) }
+        {readableDate(date)}
       </Tag>
     ),
   },
@@ -50,19 +50,19 @@ const columns = [
 const menu = (
   <Menu>
     <Menu.Item key="1">
-      <Icon type="save"/>
+      <Icon type="save" />
       Save Changes
     </Menu.Item>
     <Menu.Item key="2">
-      <Icon type="monitor"/>
+      <Icon type="monitor" />
       Preview
     </Menu.Item>
     <Menu.Item key="3">
-      <Icon type="pull-request"/>
+      <Icon type="pull-request" />
       Merge
     </Menu.Item>
     <Menu.Item key="4">
-      <Icon type="fork"/>
+      <Icon type="fork" />
       Add Draft
     </Menu.Item>
   </Menu>
@@ -74,6 +74,11 @@ class PlanFiles extends PureComponent {
     fetching: bool,
     triggerFiles: func,
     triggerBranchList: func,
+  };
+
+  state = {
+    extraFiles: [],
+    fileName: '',
   };
 
   componentDidMount() {
@@ -88,11 +93,58 @@ class PlanFiles extends PureComponent {
   get makeBranchList() {
     const { branchList } = this.props;
 
-    return (<Menu>{branchList.map((branch, index) => <Menu.Item key={index}><Icon type="branches"/> {branch}</Menu.Item>)}</Menu>);
+    return (<Menu>{branchList.map((branch, index) => <Menu.Item key={index}><Icon type="branches" /> {branch}</Menu.Item>)}</Menu>);
+  }
+
+  addFile = type => () => {
+    const { fileName } = this.state;
+
+    if (fileName) {
+      const now = new Date();
+
+      const newFile = {
+        date: now.toISOString(),
+        isDirectory: type === 'dir',
+        isFile: type === 'file',
+        key: now.getTime(),
+        name: fileName,
+      }
+
+      this.setState(prevState => {
+        return {
+          extraFiles: prevState.extraFiles.concat(newFile),
+          fileName: '',
+        }
+      });
+    }
+  }
+
+  saveFileName = e => this.setState({ fileName: e.target.value });
+
+  getFileForm = type => {
+    return (
+      <div className="plans__files-add">
+        <Input
+          placeholder="choose a name"
+          value={this.state.fileName}
+          onChange={this.saveFileName}
+        />
+        <Button
+          type="primary"
+          icon="save"
+          onClick={this.addFile(type)}
+          size="small"
+          className="plans__files-add-button"
+        >
+          Confirm
+        </Button>
+      </div>
+    );
   }
 
   render() {
     const { repoFiles, fetching } = this.props;
+    const allFiles = repoFiles.concat(this.state.extraFiles);
 
     return (
       <div className="plans__files">
@@ -109,13 +161,28 @@ class PlanFiles extends PureComponent {
           </Dropdown>
         </div>
         <div className="plans__files-edit">
-          <Button icon="file-add">Add file</Button>&nbsp;&nbsp;
-          <Button icon="folder-add">Add folder</Button>
+          <Popover
+            placement="bottomLeft"
+            title={<span><Icon type="plus" /> Add a File</span>}
+            content={this.getFileForm('file')}
+            trigger="click"
+          >
+            <Button icon="file-add" >Add file</Button>
+          </Popover>
+          &nbsp;&nbsp;
+          <Popover
+            placement="bottomLeft"
+            title={<span><Icon type="plus" /> Add a Folder</span>}
+            content={this.getFileForm('dir')}
+            trigger="click"
+          >
+            <Button icon="folder-add" >Add folder</Button>
+          </Popover>
         </div>
-        <Table 
-          columns={columns} 
-          dataSource={repoFiles.sort((a, b) => b.isDirectory - a.isDirectory)} 
-          loading={fetching}  
+        <Table
+          columns={columns}
+          dataSource={allFiles.sort((a, b) => b.isDirectory - a.isDirectory)}
+          loading={fetching}
           size="middle"
           pagination={false}
         />
