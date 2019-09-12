@@ -25,6 +25,11 @@ export const triggerFileAddition = payload => ({
   payload,
 });
 
+export const triggerFileDeletion = payload => ({
+  type: C.PLAN_DELETE_FILE_PENDING,
+  payload,
+});
+
 export const createPlan = payload => ({
     type: C.PLAN_CREATE_FULLFILLED,
     payload,

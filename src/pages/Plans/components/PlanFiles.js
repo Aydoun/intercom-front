@@ -4,11 +4,23 @@ import { object, bool, func } from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import { triggerFiles, triggerBranchList } from 'actions/repository';
-import { triggerFileAddition } from 'actions/plans';
-import { Table, Tag, Divider, Icon, Button, Menu, Dropdown, Popover, Input } from 'antd';
+import { triggerFileAddition, triggerFileDeletion } from 'actions/plans';
+import {
+  Table,
+  Tag,
+  Divider,
+  Icon,
+  Button,
+  Menu,
+  Dropdown,
+  Popover,
+  Input,
+  Popconfirm,
+  Modal,
+} from 'antd';
 import { readableDate } from 'utils';
 
-const columns = [
+const columns = deleteFunction => [
   {
     title: 'Name',
     dataIndex: 'name',
@@ -46,35 +58,24 @@ const columns = [
     title: 'Action',
     key: 'action',
     render: (text, record) => (
-      <span>
-        <Icon type="edit" />
+      <Fragment>
+        <Link to="/"><Icon type="edit" /></Link>
         <Divider type="vertical" />
-        <Icon type="delete" />
-      </span>
+        <Popconfirm
+          title="Please confirm your choice"
+          onConfirm={deleteFunction(record.name)}
+          okText="Confirm"
+          cancelText="Cancel"
+        >
+          <Icon
+            type="delete"
+            className="global--red"
+          />
+        </Popconfirm>
+      </Fragment>
     ),
   },
 ];
-
-const menu = (
-  <Menu>
-    <Menu.Item key="1">
-      <Icon type="save" />
-      Save Changes
-    </Menu.Item>
-    <Menu.Item key="2">
-      <Icon type="monitor" />
-      Preview
-    </Menu.Item>
-    <Menu.Item key="3">
-      <Icon type="pull-request" />
-      Merge
-    </Menu.Item>
-    <Menu.Item key="4">
-      <Icon type="fork" />
-      Add Draft
-    </Menu.Item>
-  </Menu>
-);
 
 class PlanFiles extends PureComponent {
   static propTypes = {
@@ -127,6 +128,57 @@ class PlanFiles extends PureComponent {
     }
   }
 
+  onActionSelected = ({ key }) => {
+    const numberKey = Number(key);
+
+    switch(numberKey) {
+      case 2:
+        Modal.info({
+        title: 'Current Status Summary',
+        content: (
+          <div>
+            <p>some messages...some messages...</p>
+            <p>some messages...some messages...</p>
+          </div>
+        ),
+        onOk() {},
+        okText: "Got it!",
+      });
+        break;
+      default:
+        break;
+    }
+  };
+
+  get actionMenu() {
+    return (
+      <Menu onClick={this.onActionSelected}>
+        <Menu.Item key="1">
+          <Icon type="save" />
+          Save Changes
+        </Menu.Item>
+        <Menu.Item key="2">
+          <Icon type="monitor" />
+          Preview
+        </Menu.Item>
+        <Menu.Item key="3">
+          <Icon type="pull-request" />
+          Merge
+        </Menu.Item>
+        <Menu.Item key="4">
+          <Icon type="fork" />
+          Add Draft
+        </Menu.Item>
+      </Menu>
+    );
+  }
+
+  deleteFile = fileName => () => {
+    const { plan } = this.props;
+
+    this.props.triggerFileDeletion({ repoName: plan.repoName, fileName })
+  }
+
   savefileName = e => this.setState({ fileName: e.target.value });
 
   getFileForm = type => {
@@ -162,7 +214,7 @@ class PlanFiles extends PureComponent {
               Drafts <Icon type="down" />
             </Button>
           </Dropdown>
-          <Dropdown overlay={menu} trigger={['click']}>
+          <Dropdown overlay={this.actionMenu} trigger={['click']}>
             <Button icon="build">
               Actions <Icon type="down" />
             </Button>
@@ -188,7 +240,7 @@ class PlanFiles extends PureComponent {
           </Popover>
         </div>
         <Table
-          columns={columns}
+          columns={columns(this.deleteFile)}
           dataSource={allFiles.sort((a, b) => b.isDirectory - a.isDirectory)}
           loading={fetching}
           size="middle"
@@ -200,7 +252,7 @@ class PlanFiles extends PureComponent {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ triggerFiles, triggerBranchList, triggerFileAddition }, dispatch);
+  return bindActionCreators({ triggerFiles, triggerBranchList, triggerFileAddition, triggerFileDeletion }, dispatch);
 }
 
 function mapStateToProps({ repository: { files, fetching, branchList } }) {

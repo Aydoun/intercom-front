@@ -93,6 +93,20 @@ function* addFile({ payload }) {
   } 
 }
 
+function* deleteFile({ payload }) {
+  const options = {
+    method: 'DELETE',
+    url: `${endpoints.FILES}/deleteFile`,
+    data: payload,
+  };
+
+  try {
+    yield call(request, options);
+  } catch (err) {
+    yield put(showError('error', 'Unexpected Error, please try again'));
+  } 
+}
+
 
 export default function* root() {
   yield all([
@@ -101,5 +115,6 @@ export default function* root() {
     takeLatest(C.PLAN_ISSUE_LIST_PENDING, ListIssues),
     takeLatest(C.PLAN_LIKE_PENDING, like),
     takeLatest(C.PLAN_ADD_FILE_PENDING, addFile),
+    takeLatest(C.PLAN_DELETE_FILE_PENDING, deleteFile),
   ]);
 }
