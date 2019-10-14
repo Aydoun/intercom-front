@@ -8,6 +8,10 @@ const initialState = {
     fetching: false,
     contributors: {},
   },
+  status: {
+    fetching: false,
+    collection: [],
+  },
   branchList: [],
 };
 
@@ -57,6 +61,22 @@ export default (state = initialState, action) => {
         ...state,
         fetching: false,
         branchList: action.payload,
+      };
+    case C.REPOSITORY_STATUS_LIST_PENDING:
+      return {
+        ...state,
+        status: {
+          fetching: true,
+          collection: [],
+        },
+      };
+    case C.REPOSITORY_STATUS_LIST_FULLFILLED:
+      return {
+        ...state,
+        status: {
+          fetching: false,
+          collection: action.data,
+        },
       };
     default:
       return state;

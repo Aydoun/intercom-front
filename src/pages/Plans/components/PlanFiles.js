@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { object, bool, func } from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
-import { triggerFiles, triggerBranchList } from 'actions/repository';
+import { triggerFiles, triggerBranchList, triggerStatus } from 'actions/repository';
 import { triggerFileAddition, triggerFileDeletion } from 'actions/plans';
 import {
   Table,
@@ -130,20 +130,11 @@ class PlanFiles extends PureComponent {
 
   onActionSelected = ({ key }) => {
     const numberKey = Number(key);
+    const { plan } = this.props;
 
     switch(numberKey) {
       case 2:
-        Modal.info({
-        title: 'Current Status Summary',
-        content: (
-          <div>
-            <p>some messages...some messages...</p>
-            <p>some messages...some messages...</p>
-          </div>
-        ),
-        onOk() {},
-        okText: "Got it!",
-      });
+        this.props.triggerStatus({ repoName: plan.repoName });
         break;
       default:
         break;
@@ -252,7 +243,13 @@ class PlanFiles extends PureComponent {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ triggerFiles, triggerBranchList, triggerFileAddition, triggerFileDeletion }, dispatch);
+  return bindActionCreators({ 
+    triggerFiles,
+    triggerBranchList, 
+    triggerFileAddition, 
+    triggerFileDeletion,
+    triggerStatus, 
+  }, dispatch);
 }
 
 function mapStateToProps({ repository: { files, fetching, branchList } }) {
