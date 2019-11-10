@@ -112,6 +112,11 @@ body {
       }
     }
   }
+
+  &__nav-item {
+    align-self: center;
+    margin: 0 10px;
+  }
 }
 
 .home {

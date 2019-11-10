@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Icon, Input, Button, Popover, Tag } from 'antd';
+import { Icon, Input, Button, Popover, Tag, Badge } from 'antd';
 import logo from '../../logo.svg';
 import PlanForm from 'blocks/AddPlan';
 
@@ -21,11 +21,15 @@ export default () => (
       <Popover placement="topLeft" content={<PlanForm />} trigger="click">
         <Button icon="plus" type="primary" className="app__tab" >Add vision</Button>
       </Popover>
-      <Link to="/messages">
-        <Tag color="geekblue" className="header__menu-tag"><Icon type="message" /> Messages (23)</Tag>
+      <Link to="/messages" className="header__nav-item">
+        <Badge count={4}>
+          <Icon type="message" style={{ fontSize: '1.8em' }} />
+        </Badge>
       </Link>
-      <Link to="/notifications">
-        <Tag color="geekblue" className="header__menu-tag"><Icon type="notification" /> Alerts</Tag>
+      <Link to="/notifications" className="header__nav-item">
+        <Badge>
+          <Icon type="notification" style={{ fontSize: '1.8em' }} />
+        </Badge>
       </Link>
     </div>
   </div>
