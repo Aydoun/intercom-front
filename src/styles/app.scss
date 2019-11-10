@@ -114,6 +114,23 @@ body {
   }
 }
 
+.home {
+  &__main-list {
+    .card-icon {
+      width: auto;
+      margin-right: 5px;
+
+      &--red {
+        color: $bloody;
+      }
+    }
+  }
+
+  &__card-avatar {
+    height: 150px;
+  }
+}
+
 .authentication {
   &__form {
     width: 500px;
@@ -205,5 +222,9 @@ body {
 
   &--red {
     color: $bloody;
+  }
+
+  &--inline {
+    display: inline;
   }
 }

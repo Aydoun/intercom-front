@@ -23,7 +23,7 @@ class Profile extends PureComponent {
     return (
       <Fragment>
         <Card
-          style={{ width: 350 }}
+          style={{ width: 250 }}
           actions={[
             <Button type="link">Invite</Button>,
             (

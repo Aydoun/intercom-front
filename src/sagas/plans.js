@@ -67,7 +67,7 @@ function* like({ payload: planId }) {
     const newCollection = yield select(state => state.plans.collection);
     const planIndex = newCollection.findIndex(item => item._id === planId);
 
-    if (planIndex > -1 && res.likes !== newCollection[planIndex].likes) {
+    if (planIndex > -1 && res.likes) {
       let plan = newCollection[planIndex];
       plan.likes = res.likes;
       newCollection.splice(planIndex, 1, plan);
@@ -75,7 +75,7 @@ function* like({ payload: planId }) {
       yield put(A.updateLike({ newCollection }));
     }
   } catch (err) {
-    yield put(showError('error', 'Server Error, please try again'));
+    yield put(showError('info', 'Your like is already been registred'));
   } 
 }
 

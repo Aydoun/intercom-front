@@ -3,10 +3,13 @@ import { bool, array } from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
-import { Skeleton, Icon, List, Avatar, Popconfirm } from 'antd';
+import { Skeleton, Icon, List, Popconfirm, Card, Typography } from 'antd';
 import { triggerPlanList, triggerLike } from 'actions/plans';
 import { clearBreadbrumb } from 'actions/index';
-import { formatName, displayNumber } from 'utils';
+import { displayNumber } from 'utils';
+
+const { Paragraph, Title } = Typography;
+const { Meta } = Card;
 
 class Home extends PureComponent {
   static propTypes = {
@@ -24,42 +27,43 @@ class Home extends PureComponent {
   }
 
   render() {
-    const { plans: { listFetching, collection, total } } = this.props;
+    const { plans: { listFetching, collection } } = this.props;
 
     return (
       <Skeleton loading={listFetching} active avatar>
+        <Title level={3}>My Missions</Title>
         <List
-          pagination={{
-            onChange: page => {
-              console.log(page);
-            },
-            total,
-            simple: true
-          }}
+          grid={{ gutter: 8, column: 4 }}
           dataSource={collection}
           renderItem={item => (
             <List.Item
               key={item._id}
-              actions={[
-                <Fragment><Icon type="like" className="global__right-margin" onClick={this.registerLike(item._id)}/>{displayNumber(item.likes)}</Fragment>,
-                <Popconfirm placement="bottom" key={item._id} title={"Please Confirm"} onConfirm={() => console.log(item._id)} >
-                  <Icon type="delete" style={{ color: 'crimson' }} />
-                </Popconfirm>,
-              ]}
             >
-              <List.Item.Meta
-                avatar={<Link to={`/plan/${item._id}`}>
-                  <Avatar 
-                    src={item.avatar} 
-                    className="app__avatar" 
-                    size="large"
-                  >
-                    {formatName(item.title)}
-                  </Avatar>
-                </Link>}
-                title={<Link to={`/plan/${item._id}`}>{item.title}</Link>}
-                description={item.description}
-              />
+              <div className="home__main-list">
+                <Card
+                  cover={
+                    <img
+                      src={item.avatar || 'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png'}
+                      alt="mission-avatar"
+                      className="home__card-avatar"
+                    />
+                  }
+                  size="small"
+                  hoverable
+                  actions={[
+                    <Fragment><Icon type="like" key="like" className="card-icon" onClick={this.registerLike(item._id)} />{displayNumber(item.likes)}</Fragment>,
+                    <Popconfirm placement="bottom" key={item._id} title={"Please Confirm"} onConfirm={() => console.log(item._id)} >
+                      <Icon type="delete" key="delete" className="card-icon card-icon--red" />
+                    </Popconfirm>
+                  ]}
+                >
+                  <Meta
+                    title={<Link to={`/plan/${item._id}`}><Title ellipsis level={4}>{item.title}</Title></Link>}
+                    description={<Paragraph ellipsis>{item.description}</Paragraph>}
+                  />
+                </Card>
+              </div>
+
             </List.Item>
           )}
         />

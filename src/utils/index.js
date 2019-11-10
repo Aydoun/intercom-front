@@ -25,7 +25,7 @@ export const formatName = name => {
 
 export const displayNumber = number => {
   const parsedNumber = parseFloat(number);
-  if (isNaN(parsedNumber)) return '-';
+  if (isNaN(parsedNumber)) return '0';
 
 
   for (var i = 0; i < mappingKeys.length; i++) {
