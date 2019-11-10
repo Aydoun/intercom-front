@@ -2,15 +2,11 @@ import React, { PureComponent } from 'react';
 import { array } from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Divider, Tabs, Icon, Badge } from 'antd';
+import { Divider, Tabs, Icon } from 'antd';
 import { showError } from 'actions/index';
-import { displayNumber } from 'utils';
-
 import PlanFiles from './components/PlanFiles';
 import PlanHistory from './components/PlanHistory';
-import PlanSummary from './components/PlanSummary';
 import PlanDetails from './components/PlanDetails';
-import PlanIssues from './components/Issues';
 
 const { TabPane } = Tabs;
 
@@ -20,11 +16,9 @@ class Plan extends PureComponent {
   };
 
   componentDidMount() {
-    const { plans } = this.props;
+    const { plans, history } = this.props;
 
-    if (plans.length === 0) {
-      this.props.history.push("/");
-    }
+    if (plans.length === 0) history.push("/");
   }
 
   selectPlanById = id => {
@@ -35,12 +29,6 @@ class Plan extends PureComponent {
   render() {
     const { id } = this.props.match.params;
     const plan = this.selectPlanById(id);
-    const issuesBadge = (
-      <Badge
-        count={displayNumber(plan && plan.issues)}
-        style={{ backgroundColor: '#fff', color: '#999', boxShadow: '0 0 0 1px #d9d9d9 inset' }}
-      />
-    );
 
     return (
       <div className="plans">
@@ -52,12 +40,6 @@ class Plan extends PureComponent {
           </TabPane>
           <TabPane tab={<span><Icon type="history" /> History</span>} key="2">
             <PlanHistory plan={plan} />
-          </TabPane>
-          <TabPane tab={<span><Icon type="issues-close" /> Issues {issuesBadge}</span>} key="3">
-            <PlanIssues plan={plan} />
-          </TabPane>
-          <TabPane tab={<span><Icon type="user" /> Contributors</span>} key="4">
-            <PlanSummary plan={plan} />
           </TabPane>
         </Tabs>
       </div>
