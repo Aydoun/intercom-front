@@ -16,7 +16,6 @@ import {
   Popover,
   Input,
   Popconfirm,
-  Modal,
 } from 'antd';
 import { readableDate } from 'utils';
 
@@ -32,7 +31,9 @@ const columns = deleteFunction => [
           type={`${record.isDirectory ? 'folder' : 'file-text'}`}
           theme={`${record.isDirectory ? 'filled' : ''}`}
         />&nbsp;&nbsp;
-        <Link to="/">{text}</Link>
+        <Link to="/">
+          {text}
+        </Link>
       </Fragment>
     ),
   },
@@ -102,7 +103,7 @@ class PlanFiles extends PureComponent {
   get makeBranchList() {
     const { branchList } = this.props;
 
-    return (<Menu>{branchList.map((branch, index) => <Menu.Item key={index}><Icon type="branches" /> {branch}</Menu.Item>)}</Menu>);
+    return (<Menu>{branchList.map(branch => <Menu.Item key={branch}><Icon type="branches" />{branch}</Menu.Item>)}</Menu>);
   }
 
   addFile = type => async () => {
@@ -132,7 +133,7 @@ class PlanFiles extends PureComponent {
     const numberKey = Number(key);
     const { plan } = this.props;
 
-    switch(numberKey) {
+    switch (numberKey) {
       case 2:
         this.props.triggerStatus({ repoName: plan.repoName });
         break;
@@ -243,12 +244,12 @@ class PlanFiles extends PureComponent {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ 
+  return bindActionCreators({
     triggerFiles,
-    triggerBranchList, 
-    triggerFileAddition, 
+    triggerBranchList,
+    triggerFileAddition,
     triggerFileDeletion,
-    triggerStatus, 
+    triggerStatus,
   }, dispatch);
 }
 

@@ -2,15 +2,17 @@ import React, { Fragment, PureComponent } from 'react';
 import { object } from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Avatar, Descriptions, Badge, Divider, Upload } from 'antd';
+import { Avatar, Descriptions, Badge, Divider, Upload, Typography } from 'antd';
 import { saveUser } from 'actions/user';
 import { showError } from 'actions/index';
 import { readableDate, getToken } from 'utils';
 import { endpoints } from 'config';
 
+const { Paragraph, Text } = Typography;
+
 const defaultUploadProps = {
   name: 'file',
-  action:`${endpoints.IMAGEUPLOAD}?token=${getToken()}&type=user`,
+  action: `${endpoints.IMAGEUPLOAD}?token=${getToken()}&type=user`,
   headers: {
     authorization: 'authorization-text',
   },
@@ -22,9 +24,9 @@ class Profile extends PureComponent {
     const { showError, saveUser, user: { collection } } = this.props;
 
     if (info.file.status === 'done') {
-      const { response: serviceResponse, status } = info.file.response;  
+      const { response: serviceResponse, status } = info.file.response;
       if (status) {
-        saveUser({...collection, avatar: serviceResponse.url});
+        saveUser({ ...collection, avatar: serviceResponse.url });
       } else {
         showError('error', `${info.file.name} file upload failed.`);
       }
@@ -33,13 +35,18 @@ class Profile extends PureComponent {
     }
   }
 
+  onInfoChange = item => (str) => {
+    console.log(str, 'str');
+    console.log(item, 'item');
+  }
+
   render() {
     const { user: { collection } } = this.props;
 
     return (
       <Fragment>
         <div className="profile">
-          <Upload 
+          <Upload
             className="profile__avatar-uploader"
             onChange={this.onChange}
             {...defaultUploadProps}
@@ -49,9 +56,17 @@ class Profile extends PureComponent {
           <Divider />
         </div>
         <Descriptions bordered>
-          <Descriptions.Item label="Full Name">{collection.name}</Descriptions.Item>
-          <Descriptions.Item label="Primary Email">{collection.email}</Descriptions.Item>
-          <Descriptions.Item label="Total Plans">{collection.plans}</Descriptions.Item>
+          <Descriptions.Item label="Full Name">
+            <Text editable={{ onChange: this.onInfoChange('name') }}>
+              {collection.name}
+            </Text>
+          </Descriptions.Item>
+          <Descriptions.Item label="Primary Email">
+            <Text editable={{ onChange: this.onInfoChange('email') }}>
+              {collection.email}
+            </Text>
+          </Descriptions.Item>
+          <Descriptions.Item label="Total Missions">{collection.plans}</Descriptions.Item>
           <Descriptions.Item label="Member since">{readableDate(collection.createdAt)}</Descriptions.Item>
           <Descriptions.Item label="Last Update" span={2}>
             {readableDate(collection.updatedAt)}
@@ -60,7 +75,9 @@ class Profile extends PureComponent {
             <Badge status="success" text="Active" />
           </Descriptions.Item>
           <Descriptions.Item label="Bio">
-            {collection.bio}
+            <Paragraph ellipsis editable={{ onChange: this.onInfoChange('bio') }}>
+              {collection.bio}
+            </Paragraph>
           </Descriptions.Item>
         </Descriptions>
       </Fragment>

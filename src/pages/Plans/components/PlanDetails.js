@@ -1,8 +1,10 @@
 import React, { PureComponent } from 'react';
 import { object } from 'prop-types';
-import { Avatar, Descriptions, Badge, Upload } from 'antd';
+import { Avatar, Descriptions, Badge, Upload, Typography } from 'antd';
 import { readableDate, getToken } from 'utils';
 import { endpoints } from 'config';
+
+const { Paragraph, Text } = Typography;
 
 const defaultUploadProps = {
   name: 'file',
@@ -37,32 +39,45 @@ class PlanSummary extends PureComponent {
     }
   }
 
+  onInfoChange = item => (str) => {
+    console.log(str, 'str');
+    console.log(item, 'item');
+  }
+
   render() {
     const { planAvatar } = this.state;
     const { plan } = this.props;
 
     return (
       <div className="plans__overview">
-      <Upload 
-        className="plans__avatar-uploader"
-        onChange={this.onChange}
-        action={`${endpoints.IMAGEUPLOAD}?token=${getToken()}&type=plan&id=${plan._id}`}
-        {...defaultUploadProps}
-      >
-        <Avatar size={128} src={planAvatar || plan.avatar} icon="project" />
-      </Upload>
-      <Descriptions bordered className="plans__details">
-        <Descriptions.Item label="Title">{plan.title}</Descriptions.Item>
-        <Descriptions.Item label="Description">{plan.description}</Descriptions.Item>
-        <Descriptions.Item label="Created at">{readableDate(plan.createdAt)}</Descriptions.Item>
-        <Descriptions.Item label="Last Update">
-          {readableDate(plan.updatedAt)}
-        </Descriptions.Item>
-        <Descriptions.Item label="Status">
-          <Badge status="success" text={plan.status} />
-        </Descriptions.Item>
-      </Descriptions>
-    </div>
+        <Upload
+          className="plans__avatar-uploader"
+          onChange={this.onChange}
+          action={`${endpoints.IMAGEUPLOAD}?token=${getToken()}&type=plan&id=${plan._id}`}
+          {...defaultUploadProps}
+        >
+          <Avatar size={128} src={planAvatar || plan.avatar} icon="project" />
+        </Upload>
+        <Descriptions bordered className="plans__details">
+          <Descriptions.Item label="Title">
+            <Text editable={{ onChange: this.onInfoChange('title') }}>
+              {plan.title}
+            </Text>
+          </Descriptions.Item>
+          <Descriptions.Item label="Created at">{readableDate(plan.createdAt)}</Descriptions.Item>
+          <Descriptions.Item label="Last Update">
+            {readableDate(plan.updatedAt)}
+          </Descriptions.Item>
+          <Descriptions.Item label="Status" span={3}>
+            <Badge status="success" text={plan.status} />
+          </Descriptions.Item>
+          <Descriptions.Item label="Description">
+            <Paragraph ellipsis editable={{ onChange: this.onInfoChange('bio') }}>
+              {plan.description}
+            </Paragraph>
+          </Descriptions.Item>
+        </Descriptions>
+      </div>
     );
   }
 }
