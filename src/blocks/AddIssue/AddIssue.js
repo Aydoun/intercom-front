@@ -16,7 +16,6 @@ class IssuesForm extends PureComponent {
     e.preventDefault();
     this.props.form.validateFields((err, fieldsValue) => {
       if (!err) {
-        console.log('fieldsValue', fieldsValue);
         this.props.form.resetFields();
       }
     });

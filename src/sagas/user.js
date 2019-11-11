@@ -37,9 +37,26 @@ function* PersistFeedback({ payload }) {
   }
 }
 
+function* UpdateUser({ payload }) {
+  const options = {
+    method: 'PUT',
+    url: endpoints.USER,
+    data: payload
+  };
+
+  try {
+    const res = yield call(request, options);
+    yield put(A.saveUser(res));
+    yield put(showError('success', 'Successfully updated your information'));
+  } catch (err) {
+    yield put(showError('error', 'Couldn\'t save your changes, please try again!'));
+  }
+}
+
 export default function* root() {
   yield all([
     takeLatest(C.USER_FETCH_PENDING, PersistUser),
     takeLatest(C.SEND_FEEDBACK, PersistFeedback),
+    takeLatest(C.USER_UPDATE_PENDING, UpdateUser),
   ]);
 }

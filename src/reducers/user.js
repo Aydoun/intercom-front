@@ -16,7 +16,10 @@ export default (state = initialState, action) => {
       return {
           ...state,
           fetching: false,
-          collection: action.payload,
+          collection: {
+            ...state.collection,
+            ...action.payload,
+          },
       }
     default:
       return state;

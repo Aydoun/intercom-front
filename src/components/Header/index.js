@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Icon, Input, Button, Popover, Tag, Badge } from 'antd';
+import { Icon, Input, Button, Popover, Badge } from 'antd';
 import logo from '../../logo.svg';
 import PlanForm from 'blocks/AddPlan';
 

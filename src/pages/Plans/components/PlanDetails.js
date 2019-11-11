@@ -30,7 +30,6 @@ class PlanSummary extends PureComponent {
       const { response: serviceResponse, status } = info.file.response;
       if (status) {
         this.setState({ planAvatar: serviceResponse.url })
-        // saveUser({...collection, avatar: serviceResponse.url});
       } else {
         showError('error', `${info.file.name} file upload failed.`);
       }
@@ -39,9 +38,8 @@ class PlanSummary extends PureComponent {
     }
   }
 
-  onInfoChange = item => (str) => {
-    console.log(str, 'str');
-    console.log(item, 'item');
+  onInfoChange = item => str => {
+
   }
 
   render() {

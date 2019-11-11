@@ -10,6 +10,11 @@ export const saveUser = payload => ({
     payload,
 });
 
+export const updateUser = payload => ({
+  type: C.USER_UPDATE_PENDING,
+  payload,
+});
+
 export const sendFeedback = payload => ({
     type: C.SEND_FEEDBACK,
     payload,

@@ -3,7 +3,7 @@ import { object } from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Avatar, Descriptions, Badge, Divider, Upload, Typography } from 'antd';
-import { saveUser } from 'actions/user';
+import { saveUser, updateUser } from 'actions/user';
 import { showError } from 'actions/index';
 import { readableDate, getToken } from 'utils';
 import { endpoints } from 'config';
@@ -21,12 +21,12 @@ const defaultUploadProps = {
 
 class Profile extends PureComponent {
   onChange = (info) => {
-    const { showError, saveUser, user: { collection } } = this.props;
+    const { showError, saveUser } = this.props;
 
     if (info.file.status === 'done') {
       const { response: serviceResponse, status } = info.file.response;
       if (status) {
-        saveUser({ ...collection, avatar: serviceResponse.url });
+        saveUser({ avatar: serviceResponse.url });
       } else {
         showError('error', `${info.file.name} file upload failed.`);
       }
@@ -35,9 +35,10 @@ class Profile extends PureComponent {
     }
   }
 
-  onInfoChange = item => (str) => {
-    console.log(str, 'str');
-    console.log(item, 'item');
+  onInfoChange = item => str => {
+    this.props.updateUser({
+      [item]: str
+    });
   }
 
   render() {
@@ -90,7 +91,7 @@ Profile.propTypes = {
 };
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ saveUser, showError }, dispatch);
+  return bindActionCreators({ saveUser, showError, updateUser }, dispatch);
 }
 
 function mapStateToProps({ user }) {

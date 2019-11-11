@@ -30,10 +30,6 @@ class PlanIssues extends PureComponent {
     this.props.setIssueDrawerVisibility(true);
   }
 
-  saveIssue = () => {
-    console.log('lets save it!');
-  }
-
   render() {
     const { issues } = this.props;
     return (
