@@ -45,7 +45,17 @@ export const triggerStatus = payload => ({
   payload,
 });
 
+export const triggerFileRead = payload => ({
+  type: C.REPOSITORY_READ_FILE_PENDING,
+  payload,
+});
+
 export const saveStatus = payload => ({
   type: C.REPOSITORY_STATUS_LIST_FULLFILLED,
+  payload,
+});
+
+export const updateFileContent = payload => ({
+  type: C.REPOSITORY_READ_FILE_FULLFILLED,
   payload,
 });

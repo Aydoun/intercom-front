@@ -8,6 +8,7 @@ import Register from './pages/Login/register';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 import Plan from './pages/Plans';
+import Files from './pages/File';
 import Points from './pages/Points';
 import Notifications from './pages/Notifications';
 import Logout from './pages/Logout';
@@ -22,6 +23,7 @@ export default () => (
             <PrivateRoute path={routes.HOME} page={Home} exact />
             <PrivateRoute path={routes.PROFILE} page={Profile} exact />
             <PrivateRoute path={routes.PLAN} page={Plan} exact />
+            <PrivateRoute path={routes.FILES} page={Files} exact />
             <PrivateRoute path={routes.USERPOINTS} page={Points} exact />
             <PrivateRoute path={routes.NOTIFICATIONS} page={Notifications} exact />
 

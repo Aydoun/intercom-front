@@ -4,6 +4,7 @@ const initialState = {
   fetching: false,
   history: [],
   files: [],
+  fileContent: [],
   summary: {
     fetching: false,
     contributors: {},
@@ -78,6 +79,11 @@ export default (state = initialState, action) => {
           collection: action.data,
         },
       };
+    case C.REPOSITORY_READ_FILE_FULLFILLED:
+      return {
+        ...state,
+        fileContent: action.payload,
+      }
     default:
       return state;
   }

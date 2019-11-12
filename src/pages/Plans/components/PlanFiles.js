@@ -19,7 +19,7 @@ import {
 } from 'antd';
 import { readableDate } from 'utils';
 
-const columns = deleteFunction => [
+const columns = (deleteFunction, currentPlan) => [
   {
     title: 'Name',
     dataIndex: 'name',
@@ -31,7 +31,7 @@ const columns = deleteFunction => [
           type={`${record.isDirectory ? 'folder' : 'file-text'}`}
           theme={`${record.isDirectory ? 'filled' : ''}`}
         />&nbsp;&nbsp;
-        <Link to="/">
+        <Link to={`/plan/${currentPlan._id}/${currentPlan.repoName}?filename=${text}&sha=${record.sha}`}>
           {text}
         </Link>
       </Fragment>
@@ -195,7 +195,7 @@ class PlanFiles extends PureComponent {
   }
 
   render() {
-    const { repoFiles, fetching } = this.props;
+    const { repoFiles, fetching, plan } = this.props;
     const allFiles = repoFiles.concat(this.state.extraFiles);
 
     return (
@@ -232,7 +232,7 @@ class PlanFiles extends PureComponent {
           </Popover>
         </div>
         <Table
-          columns={columns(this.deleteFile)}
+          columns={columns(this.deleteFile, plan)}
           dataSource={allFiles.sort((a, b) => b.isDirectory - a.isDirectory)}
           loading={fetching}
           size="middle"

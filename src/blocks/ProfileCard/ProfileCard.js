@@ -40,7 +40,7 @@ class Profile extends PureComponent {
                 {formatName(collection.name)}
               </Avatar>
             </Link>}
-            title={<Link to="/profile">{collection.name}</Link>}
+            title={<Link to="/profile">{formatName(collection.name)}</Link>}
             description={<Link to="/profile/points" className="app__menu-points" >
             <Icon type="crown" className="app__menu-crown" />
             {`${displayNumber(collection.points)}`}</Link>}

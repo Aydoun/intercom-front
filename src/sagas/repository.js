@@ -76,6 +76,21 @@ function* getStatus({ payload }) {
   }
 }
 
+function* readFile({ payload }) {
+  const { reponame, filename, sha } = payload;
+  const options = {
+    method: 'GET',
+    url: `${endpoints.REPOSITORY}/${reponame}/file?filename=${filename}&sha=${sha}&branch=master`,
+  };
+
+  try {
+    const res = yield call(request, options);
+    yield put(A.updateFileContent(res));
+  } catch (err) {
+    yield put(notify('error', 'Error While Loading File Content'));
+  }
+}
+
 export default function* root() {
   yield all([
     takeLatest(C.REPOSITORY_HISTORY_PENDING, getHistory),
@@ -83,5 +98,6 @@ export default function* root() {
     takeLatest(C.REPOSITORY_SUMMARY_PENDING, getSummary),
     takeLatest(C.REPOSITORY_BRANCHES_LIST_PENDING, getBranches),
     takeLatest(C.REPOSITORY_STATUS_LIST_PENDING, getStatus),
+    takeLatest(C.REPOSITORY_READ_FILE_PENDING, readFile),
   ]);
 }

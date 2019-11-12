@@ -60,7 +60,7 @@ class Profile extends PureComponent {
           </Upload>
           <Divider />
         </div>
-        <Descriptions bordered>
+        <Descriptions bordered column={{ xxl: 4, xl: 3, lg: 3, md: 3, sm: 2, xs: 1 }} >
           <Descriptions.Item label="Full Name">
             <Text editable={{ onChange: this.onInfoChange('name') }}>
               {collection.name}
