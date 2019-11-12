@@ -2,7 +2,10 @@ import * as C from 'constants/user';
 
 const initialState = {
   fetching: false,
-  collection: {}
+  collection: {},
+  activity: {
+    history: [],
+  },
 };
 
 export default (state = initialState, action) => {
@@ -21,6 +24,11 @@ export default (state = initialState, action) => {
             ...action.payload,
           },
       }
+    case C.USER_ACTIVITY_FULLFILLED:
+      return {
+        ...state,
+        activity: action.payload,
+      };
     default:
       return state;
   }

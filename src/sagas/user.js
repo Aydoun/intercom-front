@@ -53,10 +53,25 @@ function* UpdateUser({ payload }) {
   }
 }
 
+function* getActivityList({ payload }) {
+  const options = {
+    method: 'GET',
+    url: endpoints.ACTIVITY,
+  };
+
+  try {
+    const res = yield call(request, options);
+    yield put(A.saveActivityList(res));
+  } catch (err) {
+    yield put(notify('error', 'Sorry we Couldn\'t Retrieve The list, please try again!'));
+  }
+}
+
 export default function* root() {
   yield all([
     takeLatest(C.USER_FETCH_PENDING, PersistUser),
     takeLatest(C.SEND_FEEDBACK, PersistFeedback),
     takeLatest(C.USER_UPDATE_PENDING, UpdateUser),
+    takeLatest(C.USER_ACTIVITY_PENDING, getActivityList),
   ]);
 }

@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { node, string } from 'prop-types';
-import { Typography } from 'antd';
+import { Typography, Icon } from 'antd';
 import './card.scss';
 
 const { Text } = Typography;
@@ -9,7 +9,7 @@ const Card = ({ icon, text, extra }) => (
   <div className="info-card" >
     <div className="info-card__text">
       <span className="info-card__icon">
-        {icon && icon}
+        {icon && <Icon type={icon} />}
       </span>
       <Text>{text}</Text>
     </div>

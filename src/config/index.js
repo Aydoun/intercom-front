@@ -8,6 +8,7 @@ const PROFILE_URI = 'profile';
 const PLAN_URI = 'plan/:id';
 const NOTIFICATION_URI = 'notifications';
 const FILES_URI = 'files';
+const ACTIVITY_URI = 'activity';
 
 
 // api endpoints
@@ -23,6 +24,7 @@ export const endpoints = {
   FEEDBACK: `${hostBase}/feedback`,
   IMAGEUPLOAD: `${hostBase}/files/upload/image`,
   FILES: `${hostBase}/${FILES_URI}`,
+  ACTIVITY: `${hostBase}/${ACTIVITY_URI}`,
 };
 
 export const appRoutes = {

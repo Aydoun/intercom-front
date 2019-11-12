@@ -5,9 +5,19 @@ export const triggerFetchUser = payload => ({
     payload,
 });
 
+export const triggerActivity = payload => ({
+  type: C.USER_ACTIVITY_PENDING,
+  payload,
+});
+
 export const saveUser = payload => ({
     type: C.USER_FETCH_FULLFILLED,
     payload,
+});
+
+export const saveActivityList = payload => ({
+  type: C.USER_ACTIVITY_FULLFILLED,
+  payload,
 });
 
 export const updateUser = payload => ({
