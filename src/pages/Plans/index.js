@@ -3,7 +3,8 @@ import { array } from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Divider, Tabs, Icon } from 'antd';
-import { showError } from 'actions/index';
+import { triggerUpdatePlan } from 'actions/plans';
+import { notify } from 'actions/index';
 import PlanFiles from './components/PlanFiles';
 import PlanHistory from './components/PlanHistory';
 import PlanDetails from './components/PlanDetails';
@@ -27,12 +28,12 @@ class Plan extends PureComponent {
   }
 
   render() {
-    const { id } = this.props.match.params;
+    const { triggerUpdatePlan, notify, match: { params: { id } } } = this.props;
     const plan = this.selectPlanById(id);
 
     return (
       <div className="plans">
-        <PlanDetails plan={plan} showError={this.props.showError} />
+        <PlanDetails plan={plan} notify={notify} updatePlan={triggerUpdatePlan} />
         <Divider />
         <Tabs onChange={() => { }} type="card">
           <TabPane tab={<span><Icon type="file" /> Files</span>} key="1">
@@ -48,7 +49,7 @@ class Plan extends PureComponent {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ showError }, dispatch);
+  return bindActionCreators({ notify, triggerUpdatePlan }, dispatch);
 }
 
 function mapStateToProps({ user, plans }) {

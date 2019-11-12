@@ -10,11 +10,6 @@ export const triggerPlanList = payload => ({
     payload,
 });
 
-export const triggerIssuesList = payload => ({
-    type: C.PLAN_ISSUE_LIST_PENDING,
-    payload,
-});
-
 export const triggerLike = payload => ({
     type: C.PLAN_LIKE_PENDING,
     payload,
@@ -40,12 +35,12 @@ export const savePlanList = payload => ({
     payload,
 });
 
-export const saveIssuesList = payload => ({
-    type: C.PLAN_ISSUE_LIST_FULLFILLED,
-    payload,
+export const triggerUpdatePlan = payload => ({
+  type: C.PLAN_UPDATE_PENDING,
+  payload,
 });
 
-export const updateLike = payload => ({
-    type: C.PLAN_LIKE_FULLFILLED,
-    payload,
+export const updatePlan = payload => ({
+  type: C.PLAN_UPDATE_FULLFILLED,
+  payload,
 });

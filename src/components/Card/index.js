@@ -11,7 +11,7 @@ const Card = ({ icon, text, extra }) => (
       <span className="info-card__icon">
         {icon && icon}
       </span>
-      <Text code>{text}</Text>
+      <Text>{text}</Text>
     </div>
     <div>
       {extra && extra }

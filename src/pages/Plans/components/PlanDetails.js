@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { object } from 'prop-types';
+import { object, func } from 'prop-types';
 import { Avatar, Descriptions, Badge, Upload, Typography } from 'antd';
 import { readableDate, getToken } from 'utils';
 import { endpoints } from 'config';
@@ -17,6 +17,8 @@ const defaultUploadProps = {
 class PlanSummary extends PureComponent {
   static propTypes = {
     plan: object,
+    updatePlan: func,
+    notify: func,
   };
 
   state = {
@@ -24,22 +26,29 @@ class PlanSummary extends PureComponent {
   };
 
   onChange = (info) => {
-    const { showError } = this.props;
+    const { notify } = this.props;
 
     if (info.file.status === 'done') {
       const { response: serviceResponse, status } = info.file.response;
       if (status) {
         this.setState({ planAvatar: serviceResponse.url })
       } else {
-        showError('error', `${info.file.name} file upload failed.`);
+        notify('error', `${info.file.name} file upload failed.`);
       }
     } else if (info.file.status === 'error') {
-      showError('error', `${info.file.name} file upload failed.`);
+      notify('error', `${info.file.name} file upload failed.`);
     }
   }
 
   onInfoChange = item => str => {
+    const { plan, updatePlan } = this.props;
 
+    if (plan[item] !== str) {
+      updatePlan({
+        data: { [item]: str },
+        id: plan.id,
+      });
+    }    
   }
 
   render() {
@@ -70,7 +79,7 @@ class PlanSummary extends PureComponent {
             <Badge status="success" text={plan.status} />
           </Descriptions.Item>
           <Descriptions.Item label="Description">
-            <Paragraph ellipsis editable={{ onChange: this.onInfoChange('bio') }}>
+            <Paragraph ellipsis editable={{ onChange: this.onInfoChange('description') }}>
               {plan.description}
             </Paragraph>
           </Descriptions.Item>

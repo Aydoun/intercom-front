@@ -3,9 +3,7 @@ import * as C from 'constants/plans';
 const initialState = {
   fetching: false,
   listFetching: false,
-  issueFetching: false,
   collection: [],
-  issues: [],
 };
 
 export default (state = initialState, action) => {
@@ -20,11 +18,6 @@ export default (state = initialState, action) => {
         ...state,
         listFetching: true,
       };
-    case C.PLAN_ISSUE_LIST_PENDING:
-      return {
-        ...state,
-        issueFetching: true,
-      };
     case C.PLAN_CREATE_FULLFILLED:
       return {
         ...state,
@@ -38,20 +31,14 @@ export default (state = initialState, action) => {
         listFetching: false,
         collection: docs,
         ...rest,
-      };
-    case C.PLAN_ISSUE_LIST_FULLFILLED:
-      return {
-        ...state,
-        issueFetching: false,
-        issues: action.payload,
-      };
-    case C.PLAN_LIKE_FULLFILLED:
+      };      
+    case C.PLAN_UPDATE_FULLFILLED:
       const { newCollection } = action.payload;
-
       return {
         ...state,
         collection: newCollection,
       };
+
     default:
       return state;
   }

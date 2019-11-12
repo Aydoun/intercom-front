@@ -1,6 +1,6 @@
 import { all, takeLatest, call, put } from 'redux-saga/effects';
 import * as C from 'constants/repository';
-import { showError } from 'actions/index';
+import { notify } from 'actions/index';
 import * as A from 'actions/repository';
 import { endpoints } from 'config';
 import request from 'utils/request';
@@ -16,7 +16,7 @@ function* getHistory({ payload }) {
     const res = yield call(request, options);
     yield put(A.saveHistory(res));
   } catch (err) {
-    yield put(showError('error', 'Error While Loading History logs'));
+    yield put(notify('error', 'Error While Loading History logs'));
   }
 }
 
@@ -30,7 +30,7 @@ function* getFiles({ payload }) {
     const res = yield call(request, options);
     yield put(A.saveFiles(res));
   } catch (err) {
-    yield put(showError('error', 'Error While Loading Your Files'));
+    yield put(notify('error', 'Error While Loading Your Files'));
   }
 }
 
@@ -44,7 +44,7 @@ function* getSummary({ payload }) {
     const res = yield call(request, options);
     yield put(A.saveSummary(res));
   } catch (err) {
-    yield put(showError('error', 'Error While Loading Your Files'));
+    yield put(notify('error', 'Error While Loading Your Files'));
   }
 }
 
@@ -58,7 +58,7 @@ function* getBranches({ payload }) {
     const res = yield call(request, options);
     yield put(A.saveBranchList(res));
   } catch (err) {
-    yield put(showError('error', 'Error While Loading Your Drafts'));
+    yield put(notify('error', 'Error While Loading Your Drafts'));
   }
 }
 
@@ -72,7 +72,7 @@ function* getStatus({ payload }) {
     const res = yield call(request, options);
     yield put(A.saveStatus(res));
   } catch (err) {
-    yield put(showError('error', 'Error While Loading The Preview'));
+    yield put(notify('error', 'Error While Loading The Preview'));
   }
 }
 

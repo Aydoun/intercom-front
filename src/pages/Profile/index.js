@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Avatar, Descriptions, Badge, Divider, Upload, Typography } from 'antd';
 import { saveUser, updateUser } from 'actions/user';
-import { showError } from 'actions/index';
+import { notify } from 'actions/index';
 import { readableDate, getToken } from 'utils';
 import { endpoints } from 'config';
 
@@ -21,24 +21,28 @@ const defaultUploadProps = {
 
 class Profile extends PureComponent {
   onChange = (info) => {
-    const { showError, saveUser } = this.props;
+    const { notify, saveUser } = this.props;
 
     if (info.file.status === 'done') {
       const { response: serviceResponse, status } = info.file.response;
       if (status) {
         saveUser({ avatar: serviceResponse.url });
       } else {
-        showError('error', `${info.file.name} file upload failed.`);
+        notify('error', `${info.file.name} file upload failed.`);
       }
     } else if (info.file.status === 'error') {
-      showError('error', `${info.file.name} file upload failed.`);
+      notify('error', `${info.file.name} file upload failed.`);
     }
   }
 
   onInfoChange = item => str => {
-    this.props.updateUser({
-      [item]: str
-    });
+    const { user: { collection }, updateUser } = this.props;
+
+    if (collection[item] !== str) {
+      updateUser({
+        [item]: str
+      });
+    }
   }
 
   render() {
@@ -91,7 +95,7 @@ Profile.propTypes = {
 };
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ saveUser, showError, updateUser }, dispatch);
+  return bindActionCreators({ saveUser, notify, updateUser }, dispatch);
 }
 
 function mapStateToProps({ user }) {

@@ -1,6 +1,6 @@
 import { all, takeLatest, call, put } from 'redux-saga/effects';
 import * as C from 'constants/auth';
-import { showError } from 'actions/index';
+import { notify } from 'actions/index';
 import * as A from 'actions/auth';
 import { endpoints } from 'config';
 import { saveToken } from 'utils';
@@ -21,7 +21,7 @@ function* userLogin(userInfo) {
     saveToken(res.token);
     window.location.href = '/';
   } catch (err) {
-    yield put(showError('error', 'Wrong Information, please Try again!'));
+    yield put(notify('error', 'Wrong Information, please Try again!'));
     yield put(A.saveAuth(null));
   }
 }
@@ -40,7 +40,7 @@ function* userRegister(userInfo) {
     saveToken(res.token);
     window.location.href = '/';
   } catch (err) {
-    yield put(showError('error', 'Wrong Information, please Try again!'));
+    yield put(notify('error', 'Wrong Information, please Try again!'));
     yield put(A.saveAuth(null));
   }
 }
