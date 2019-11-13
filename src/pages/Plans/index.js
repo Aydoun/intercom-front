@@ -2,14 +2,11 @@ import React, { PureComponent } from 'react';
 import { array } from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Divider, Tabs, Icon } from 'antd';
+import { Divider } from 'antd';
 import { triggerUpdatePlan } from 'actions/plans';
 import { notify } from 'actions/index';
 import PlanFiles from './components/PlanFiles';
-import PlanHistory from './components/PlanHistory';
 import PlanDetails from './components/PlanDetails';
-
-const { TabPane } = Tabs;
 
 class Plan extends PureComponent {
   static propTypes = {
@@ -35,14 +32,7 @@ class Plan extends PureComponent {
       <div className="plans">
         <PlanDetails plan={plan} notify={notify} updatePlan={triggerUpdatePlan} />
         <Divider />
-        <Tabs onChange={() => { }} type="card">
-          <TabPane tab={<span><Icon type="file" /> Files</span>} key="1">
-            <PlanFiles plan={plan} />
-          </TabPane>
-          <TabPane tab={<span><Icon type="history" /> History</span>} key="2">
-            <PlanHistory plan={plan} />
-          </TabPane>
-        </Tabs>
+        <PlanFiles plan={plan} />
       </div>
     );
   }

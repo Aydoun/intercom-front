@@ -31,7 +31,7 @@ const columns = (deleteFunction, currentPlan) => [
           type={`${record.isDirectory ? 'folder' : 'file-text'}`}
           theme={`${record.isDirectory ? 'filled' : ''}`}
         />&nbsp;&nbsp;
-        <Link to={`/plan/${currentPlan._id}/${currentPlan.repoName}?fileName=${text}&sha=${record.sha}`}>
+        <Link to={`/plan/${currentPlan._id}/${currentPlan.repoName}?fileName=${text}&sha=${record.commitsha}`}>
           {text}
         </Link>
       </Fragment>
