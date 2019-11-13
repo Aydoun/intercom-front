@@ -3,7 +3,7 @@ import { getToken } from 'utils';
 
 function checkStatus(res) {
     const data = res.data;
-    if (res.status === 200 && data.status) return data.response;
+    if (res.status === 200 && data.status) return data;
 
     const error = new Error(data);
     error.response = data.response;

@@ -22,7 +22,7 @@ class PointsSummary extends PureComponent {
         { activityList.map(item => (
           <Card 
             key={item._id} 
-            text={item.actionType} 
+            text={`${item.actionType} -- ${item.value}`} 
             icon="crown" 
             extra={<Tag color="geekblue">{ readableDate(item.createdAt) }</Tag>}
           />

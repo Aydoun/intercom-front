@@ -14,7 +14,7 @@ function* PersistUser(userInfo) {
   };
 
   try {
-    const res = yield call(request, options);
+    const { response: res } = yield call(request, options);
     yield put(A.saveUser(res))
   } catch (err) {
     yield put(notify('error', 'Couldn\'t Retrieve Your information'));
@@ -25,11 +25,16 @@ function* PersistFeedback({ payload }) {
   const options = {
     method: 'POST',
     url: endpoints.FEEDBACK,
-    data: payload
+    data: { message: payload.message },
   };
 
+  // console.log('options :', options);
+
   try {
-    yield call(request, options);
+    const response = yield call(request, options);
+    if (response.value) {
+      yield put(A.saveUser({ points: payload.points + response.value }));
+    }
     yield put(notify('success', 'Thank you for your feedback'));
     yield put(setFeedbackDrawerVisibility(false));
   } catch (err) {
@@ -45,7 +50,7 @@ function* UpdateUser({ payload }) {
   };
 
   try {
-    const res = yield call(request, options);
+    const { response: res } = yield call(request, options);
     yield put(A.saveUser(res));
     yield put(notify('success', 'Successfully updated your information'));
   } catch (err) {
@@ -60,7 +65,7 @@ function* getActivityList({ payload }) {
   };
 
   try {
-    const res = yield call(request, options);
+    const { response: res } = yield call(request, options);
     yield put(A.saveActivityList(res));
   } catch (err) {
     yield put(notify('error', 'Sorry we Couldn\'t Retrieve The list, please try again!'));

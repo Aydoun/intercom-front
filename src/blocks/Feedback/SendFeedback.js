@@ -16,7 +16,10 @@ class FeedbackForm extends PureComponent {
     e.preventDefault();
     this.props.form.validateFields((err, fieldsValue) => {
       if (!err) {
-        this.props.sendFeedback(fieldsValue);
+        const { user: { points } } = this.props;
+        const { message } = fieldsValue;
+        
+        this.props.sendFeedback({ points, message });
       }
     });
   }
@@ -67,9 +70,10 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({ sendFeedback, setFeedbackDrawerVisibility }, dispatch);
 }
 
-function mapStateToProps({ app }) {
+function mapStateToProps({ app, user: { collection } }) {
   return {
-    visible: app.feedbackDrawerVisible
+    visible: app.feedbackDrawerVisible,
+    user: collection,
   };
 }
 

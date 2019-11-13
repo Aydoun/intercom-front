@@ -15,7 +15,7 @@ function* userLogin(userInfo) {
   };
 
   try {
-    const res = yield call(request, options);
+    const { response: res } = yield call(request, options);
     yield put(A.saveAuth(res));
 
     saveToken(res.token);
@@ -34,7 +34,7 @@ function* userRegister(userInfo) {
   };
 
   try {
-    const res = yield call(request, options);
+    const { response: res } = yield call(request, options);
     yield put(A.saveAuth(res));
 
     saveToken(res.token);

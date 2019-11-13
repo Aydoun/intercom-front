@@ -13,7 +13,7 @@ function* PersistPlan({ payload }) {
   };
 
   try {
-    const res = yield call(request, options);
+    const { response: res } = yield call(request, options);
     yield put(A.createPlan(res));
     
     yield put(notify('success', 'Plan Successfully Added'));
@@ -29,7 +29,7 @@ function* ListPlans() {
   };
 
   try {
-    const res = yield call(request, options);
+    const { response: res } = yield call(request, options);
     yield put(A.savePlanList(res));
     
   } catch (err) {
@@ -46,7 +46,7 @@ function* like({ payload: planId }) {
   };
 
   try {
-    const res = yield call(request, options);
+    const { response: res } = yield call(request, options);
     
     const stateCollection = yield select(state => state.plans.collection);
     const newCollection = stateCollection.slice();
@@ -101,7 +101,7 @@ function* updatePlan({ payload }) {
   };
 
   try {
-    const res = yield call(request, options);
+    const { response: res } = yield call(request, options);
 
     const stateCollection = yield select(state => state.plans.collection);
     const newCollection = stateCollection.slice();

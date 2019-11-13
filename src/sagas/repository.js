@@ -13,7 +13,7 @@ function* getHistory({ payload }) {
   };
 
   try {
-    const res = yield call(request, options);
+    const { response: res } = yield call(request, options);
     yield put(A.saveHistory(res));
   } catch (err) {
     yield put(notify('error', 'Error While Loading History logs'));
@@ -27,7 +27,7 @@ function* getFiles({ payload }) {
   };
 
   try {
-    const res = yield call(request, options);
+    const { response: res } = yield call(request, options);
     yield put(A.saveFiles(res));
   } catch (err) {
     yield put(notify('error', 'Error While Loading Your Files'));
@@ -41,7 +41,7 @@ function* getSummary({ payload }) {
   };
 
   try {
-    const res = yield call(request, options);
+    const { response: res } = yield call(request, options);
     yield put(A.saveSummary(res));
   } catch (err) {
     yield put(notify('error', 'Error While Loading Your Files'));
@@ -55,7 +55,7 @@ function* getBranches({ payload }) {
   };
 
   try {
-    const res = yield call(request, options);
+    const { response: res } = yield call(request, options);
     yield put(A.saveBranchList(res));
   } catch (err) {
     yield put(notify('error', 'Error While Loading Your Drafts'));
@@ -69,7 +69,7 @@ function* getStatus({ payload }) {
   };
 
   try {
-    const res = yield call(request, options);
+    const { response: res } = yield call(request, options);
     yield put(A.saveStatus(res));
   } catch (err) {
     yield put(notify('error', 'Error While Loading The Preview'));
@@ -84,7 +84,7 @@ function* readFile({ payload }) {
   };
 
   try {
-    const res = yield call(request, options);
+    const { response: res } = yield call(request, options);
     yield put(A.updateFileContent(res));
   } catch (err) {
     yield put(notify('error', 'Error While Loading File Content'));
