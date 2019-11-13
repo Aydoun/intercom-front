@@ -32,9 +32,8 @@ class PlanHistory extends PureComponent {
                 <Timeline.Item key={item.sha} >
                   <Link to={`/history/${item.sha}`}>
                     <Card 
-                      icon={item.author}
                       text={item.comment} 
-                      extra={<Tag color="geekblue">{ readableDate(item.date) }</Tag>} 
+                      extra={<Tag color="geekblue">{readableDate(item.date)}</Tag>} 
                     />  
                   </Link>
                 </Timeline.Item>

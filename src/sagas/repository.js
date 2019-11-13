@@ -77,10 +77,10 @@ function* getStatus({ payload }) {
 }
 
 function* readFile({ payload }) {
-  const { reponame, filename, sha } = payload;
+  const { repoName, fileName, sha } = payload;
   const options = {
     method: 'GET',
-    url: `${endpoints.REPOSITORY}/${reponame}/file?filename=${filename}&sha=${sha}&branch=master`,
+    url: `${endpoints.REPOSITORY}/${repoName}/file?fileName=${fileName}&sha=${sha}&branch=master`,
   };
 
   try {
@@ -88,6 +88,37 @@ function* readFile({ payload }) {
     yield put(A.updateFileContent(res));
   } catch (err) {
     yield put(notify('error', 'Error While Loading File Content'));
+  }
+}
+
+function* writeFile({ payload }) {
+  const options = {
+    method: 'PUT',
+    url: `${endpoints.FILES}/writeFile`,
+    data: payload
+  };
+
+  try {
+    yield call(request, options);
+    yield put(notify('info', 'File content successfully changed'));
+  } catch (err) {
+    yield put(notify('error', 'Error While Loading File Content'));
+  }
+}
+
+function* commitChanges({ payload }) {
+  const { repoName } = payload;
+  const options = {
+    method: 'POST',
+    url: `${endpoints.REPOSITORY}/${repoName}/commit`,
+    data: payload
+  };
+
+  try {
+    yield call(request, options);
+    yield put(notify('success', 'commit successfully submited'));
+  } catch (err) {
+    yield put(notify('info', 'There is nothing to commit yet'));
   }
 }
 
@@ -99,5 +130,7 @@ export default function* root() {
     takeLatest(C.REPOSITORY_BRANCHES_LIST_PENDING, getBranches),
     takeLatest(C.REPOSITORY_STATUS_LIST_PENDING, getStatus),
     takeLatest(C.REPOSITORY_READ_FILE_PENDING, readFile),
+    takeLatest(C.REPOSITORY_WRITE_FILE_PENDING, writeFile),
+    takeLatest(C.REPOSITORY_COMMIT_PENDING, commitChanges),
   ]);
 }

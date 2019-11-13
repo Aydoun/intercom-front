@@ -59,3 +59,13 @@ export const updateFileContent = payload => ({
   type: C.REPOSITORY_READ_FILE_FULLFILLED,
   payload,
 });
+
+export const writeFileContent = payload => ({
+  type: C.REPOSITORY_WRITE_FILE_PENDING,
+  payload,
+});
+
+export const addCommit = payload => ({
+  type: C.REPOSITORY_COMMIT_PENDING,
+  payload,
+});

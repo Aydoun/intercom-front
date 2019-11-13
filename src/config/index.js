@@ -36,5 +36,5 @@ export const appRoutes = {
   LOGOUT: `${appBaseURL}${LOGOUT_URI}`,
   USERPOINTS: `${appBaseURL}${PROFILE_URI}/points`,
   NOTIFICATIONS: `${appBaseURL}${NOTIFICATION_URI}`,
-  FILES: `${appBaseURL}${PLAN_URI}/:reponame`,
+  FILES: `${appBaseURL}${PLAN_URI}/:repoName`,
 };
