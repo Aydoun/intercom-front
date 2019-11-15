@@ -90,6 +90,7 @@ class PlanFiles extends PureComponent {
   state = {
     extraFiles: [],
     fileName: '',
+    draftName: '',
   };
 
   componentDidMount() {
@@ -176,6 +177,7 @@ class PlanFiles extends PureComponent {
   }
 
   savefileName = e => this.setState({ fileName: e.target.value });
+  saveDraftName = e => this.setState({ draftName: e.target.value });
 
   getFileForm = type => {
     return (
@@ -198,6 +200,13 @@ class PlanFiles extends PureComponent {
     );
   }
 
+  createDraft = () => {
+    const { draftName } = this.state;
+    if (draftName) {
+      console.log(draftName, 22)
+    }
+  }
+
   render() {
     const { repoFiles, fetching, plan } = this.props;
     const allFiles = repoFiles.concat(this.state.extraFiles);
@@ -210,11 +219,21 @@ class PlanFiles extends PureComponent {
               Drafts <Icon type="down" />
             </Button>
           </Dropdown>
-          <Dropdown overlay={this.actionMenu} trigger={['click']}>
-            <Button icon="build">
-              Actions <Icon type="down" />
-            </Button>
-          </Dropdown>
+          <Popover
+            content={<div>
+              <Input 
+                placeholder="choose a name" 
+                value={this.state.draftName}
+                onChange={this.saveDraftName}
+              />
+              <Button type="primary" icon="save" onClick={this.createDraft}>Save</Button>
+            </div>}
+            trigger="click"
+            placement="bottom"
+          >
+            <Button icon="plus" />
+          </Popover>
+          
         </div>
         <div className="plans__files-edit">
           <Popover
