@@ -14,7 +14,7 @@ export default function request(options) {
     return axios({
         ...options,
         headers: { 'x-api-key': getToken() },
-        timeout: 10 * 1000,
+        timeout: 7 * 1000,
     })
     .then(checkStatus);
 }

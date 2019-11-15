@@ -51,7 +51,7 @@ class FileContent extends PureComponent {
 
   render() {
     const { fileContent } = this.props;
-    const { content } = this.state;
+    const content = this.state.content || fileContent.join(',');
 
     return (
       <div>

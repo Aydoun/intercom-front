@@ -31,7 +31,8 @@ const columns = (deleteFunction, currentPlan) => [
           type={`${record.isDirectory ? 'folder' : 'file-text'}`}
           theme={`${record.isDirectory ? 'filled' : ''}`}
         />&nbsp;&nbsp;
-        <Link to={`/plan/${currentPlan._id}/${currentPlan.repoName}?fileName=${text}&sha=${record.commitsha}`}>
+        <Link 
+          to={`/plan/${currentPlan._id}/${currentPlan.repoName}?fileName=${text}&sha=${record.commitsha || ''}`}>
           {text}
         </Link>
       </Fragment>
@@ -107,26 +108,29 @@ class PlanFiles extends PureComponent {
   }
 
   addFile = type => async () => {
-    const { plan } = this.props;
+    const { plan, triggerFileAddition } = this.props;
     const { fileName } = this.state;
 
-    this.props.triggerFileAddition({ fileName, repoName: plan.repoName, type, dirName: fileName });
+    try {
+      await triggerFileAddition({ fileName, repoName: plan.repoName, type, dirName: fileName });
 
-    if (fileName) {
-      const newFile = {
-        isDirectory: type === 'dir',
-        isFile: type === 'file',
-        key: new Date().getTime(),
-        name: fileName,
-      };
+      if (fileName) {
+        const newFile = {
+          isDirectory: type === 'dir',
+          isFile: type === 'file',
+          key: new Date().getTime(),
+          name: fileName,
+        };
+  
+        this.setState(prevState => {
+          return {
+            extraFiles: prevState.extraFiles.concat(newFile),
+            fileName: '',
+          }
+        });
+      }
+    } catch(e) {}
 
-      this.setState(prevState => {
-        return {
-          extraFiles: prevState.extraFiles.concat(newFile),
-          fileName: '',
-        }
-      });
-    }
   }
 
   onActionSelected = ({ key }) => {
@@ -166,9 +170,9 @@ class PlanFiles extends PureComponent {
   }
 
   deleteFile = fileName => () => {
-    const { plan } = this.props;
+    const { plan, triggerFileDeletion } = this.props;
 
-    this.props.triggerFileDeletion({ repoName: plan.repoName, fileName })
+    triggerFileDeletion({ repoName: plan.repoName, fileName })
   }
 
   savefileName = e => this.setState({ fileName: e.target.value });
