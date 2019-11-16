@@ -1,4 +1,5 @@
 import * as C from 'constants/repository';
+import { createBranch } from 'actions/repository';
 
 const initialState = {
   fetching: false,
@@ -14,9 +15,12 @@ const initialState = {
     collection: [],
   },
   branchList: [],
+  currentBranch: '',
 };
 
 export default (state = initialState, action) => {
+  const { payload } = action;
+  
   switch (action.type) {
     case C.REPOSITORY_HISTORY_PENDING:
       return {
@@ -83,7 +87,15 @@ export default (state = initialState, action) => {
       return {
         ...state,
         fileContent: action.payload,
-      }
+      };
+    case createBranch.SUCCESS:
+      return {
+        ...state,
+        branchList: state.branchList.concat(payload.branchName),
+        currentBranch: payload.branchName,
+      };
+    case createBranch.FAILURE:
+      return state;
     default:
       return state;
   }

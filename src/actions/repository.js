@@ -1,3 +1,4 @@
+import { createRoutine } from 'redux-saga-routines';
 import * as C from 'constants/repository';
 
 export const triggerHistory = payload => ({
@@ -69,3 +70,5 @@ export const addCommit = payload => ({
   type: C.REPOSITORY_COMMIT_PENDING,
   payload,
 });
+
+export const createBranch = createRoutine(C.CREATE_BRANCH);

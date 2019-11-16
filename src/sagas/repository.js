@@ -122,6 +122,24 @@ function* commitChanges({ payload }) {
   }
 }
 
+function* createNewBranch({ payload }) {
+  const { repoName, branchName } = payload;
+  const options = {
+    method: 'POST',
+    url: `${endpoints.REPOSITORY}/${repoName}/branch?branchName=${branchName}`,
+    data: payload
+  };
+
+  try {
+    yield call(request, options);
+    yield put(A.createBranch.success({ branchName }));
+    yield put(notify('success', 'Draft Successfully added'));
+  } catch (err) {
+    yield put(A.createBranch.failure(err.message));
+    yield put(notify('error', 'Error while creating your draft'));
+  }
+}
+
 export default function* root() {
   yield all([
     takeLatest(C.REPOSITORY_HISTORY_PENDING, getHistory),
@@ -132,5 +150,6 @@ export default function* root() {
     takeLatest(C.REPOSITORY_READ_FILE_PENDING, readFile),
     takeLatest(C.REPOSITORY_WRITE_FILE_PENDING, writeFile),
     takeLatest(C.REPOSITORY_COMMIT_PENDING, commitChanges),
+    takeLatest(A.createBranch.TRIGGER, createNewBranch),
   ]);
 }

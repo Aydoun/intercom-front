@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { object, bool, func } from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
-import { triggerFiles, triggerBranchList, triggerStatus } from 'actions/repository';
+import { triggerFiles, triggerBranchList, triggerStatus, createBranch } from 'actions/repository';
 import { triggerFileAddition, triggerFileDeletion } from 'actions/plans';
 import {
   Table,
@@ -201,9 +201,10 @@ class PlanFiles extends PureComponent {
   }
 
   createDraft = () => {
-    const { draftName } = this.state;
-    if (draftName) {
-      console.log(draftName, 22)
+    const { draftName: branchName } = this.state;
+    const { plan: { repoName } } = this.props;
+    if (branchName) {
+      this.props.createBranch({ repoName, branchName });
     }
   }
 
@@ -273,6 +274,7 @@ function mapDispatchToProps(dispatch) {
     triggerFileAddition,
     triggerFileDeletion,
     triggerStatus,
+    createBranch, 
   }, dispatch);
 }
 
