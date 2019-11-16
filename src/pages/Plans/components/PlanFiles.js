@@ -97,15 +97,26 @@ class PlanFiles extends PureComponent {
     const { plan, triggerBranchList, triggerFiles } = this.props;
 
     if (plan.repoName) {
-      triggerFiles({ repoName: plan.repoName });
+      triggerFiles({ repoName: plan.repoName, branch: 'master' });
       triggerBranchList({ repoName: plan.repoName });
     }
   }
 
-  get makeBranchList() {
-    const { branchList } = this.props;
+  onDraftChange = ({ key: selectedBranch }) => {
+    const { plan, triggerFiles } = this.props;
+    triggerFiles({ repoName: plan.repoName, branch: selectedBranch });
+  }
 
-    return (<Menu>{branchList.map(branch => <Menu.Item key={branch}><Icon type="branches" />{branch}</Menu.Item>)}</Menu>);
+  get makeBranchList() {
+    const { branchList, currentBranch } = this.props;
+
+    return (
+      <Menu defaultSelectedKeys={[currentBranch]} onClick={this.onDraftChange}>
+        <Menu.Item key="master"><Icon type="branches" />master</Menu.Item>
+        {branchList
+          .filter(item => item !== 'master')
+          .map(branch => <Menu.Item key={branch}><Icon type="branches" />{branch}</Menu.Item>)}
+      </Menu>);
   }
 
   addFile = type => async () => {
@@ -132,42 +143,6 @@ class PlanFiles extends PureComponent {
       }
     } catch(e) {}
 
-  }
-
-  onActionSelected = ({ key }) => {
-    const numberKey = Number(key);
-    const { plan } = this.props;
-
-    switch (numberKey) {
-      case 2:
-        this.props.triggerStatus({ repoName: plan.repoName });
-        break;
-      default:
-        break;
-    }
-  };
-
-  get actionMenu() {
-    return (
-      <Menu onClick={this.onActionSelected}>
-        <Menu.Item key="1">
-          <Icon type="save" />
-          Save Changes
-        </Menu.Item>
-        <Menu.Item key="2">
-          <Icon type="monitor" />
-          Preview
-        </Menu.Item>
-        <Menu.Item key="3">
-          <Icon type="pull-request" />
-          Merge
-        </Menu.Item>
-        <Menu.Item key="4">
-          <Icon type="fork" />
-          Add Draft
-        </Menu.Item>
-      </Menu>
-    );
   }
 
   deleteFile = fileName => () => {
@@ -209,7 +184,7 @@ class PlanFiles extends PureComponent {
   }
 
   render() {
-    const { repoFiles, fetching, plan } = this.props;
+    const { repoFiles, fetching, plan, currentBranch } = this.props;
     const allFiles = repoFiles.concat(this.state.extraFiles);
 
     return (
@@ -217,7 +192,7 @@ class PlanFiles extends PureComponent {
         <div className="plans__files-menu">
           <Dropdown overlay={this.makeBranchList} trigger={['click']}>
             <Button icon="branches">
-              Drafts <Icon type="down" />
+              { currentBranch } <Icon type="down" />
             </Button>
           </Dropdown>
           <Popover
@@ -278,11 +253,12 @@ function mapDispatchToProps(dispatch) {
   }, dispatch);
 }
 
-function mapStateToProps({ repository: { files, fetching, branchList } }) {
+function mapStateToProps({ repository: { files, fetching, branchList, currentBranch } }) {
   return {
     repoFiles: files,
     fetching,
     branchList,
+    currentBranch,
   };
 }
 

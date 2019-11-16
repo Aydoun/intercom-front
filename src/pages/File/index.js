@@ -38,14 +38,14 @@ class FileContent extends PureComponent {
 
   registerCommit = () => {
     const { match: { params: { repoName } } } = this.props;
-    const { user: { email, name: username } } = this.props;
+    const { user: { email, name: username }, currentBranch } = this.props;
 
     this.props.addCommit({
       username,
       email,
       repoName,
-      message: 'random message',
-      branch: 'master'
+      message: Math.random().toString(36).substring(2, 15),
+      branch: currentBranch,
     });
   }
 
@@ -82,10 +82,11 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({ triggerFileRead, writeFileContent, addCommit }, dispatch);
 }
 
-function mapStateToProps({ repository: { fileContent }, user: { collection } }) {
+function mapStateToProps({ repository: { fileContent, currentBranch }, user: { collection } }) {
   return {
     fileContent,
     user: collection,
+    currentBranch,
   };
 }
 

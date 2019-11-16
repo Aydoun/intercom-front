@@ -20,13 +20,14 @@ function* getHistory({ payload }) {
   }
 }
 
-function* getFiles({ payload }) {
+function* getTreeFiles({ payload }) {
   const options = {
     method: 'GET',
-    url: `${endpoints.REPOSITORY}/${payload.repoName}/tree?branch=master`,
+    url: `${endpoints.REPOSITORY}/${payload.repoName}/tree?branch=${payload.branch}`,
   };
 
   try {
+    yield put({ type: C.UPDATE_CURRENT_BRANCH, branch: payload.branch });
     const { response: res } = yield call(request, options);
     yield put(A.saveFiles(res));
   } catch (err) {
@@ -143,7 +144,7 @@ function* createNewBranch({ payload }) {
 export default function* root() {
   yield all([
     takeLatest(C.REPOSITORY_HISTORY_PENDING, getHistory),
-    takeLatest(C.REPOSITORY_FILES_PENDING, getFiles),
+    takeLatest(C.REPOSITORY_FILES_PENDING, getTreeFiles),
     takeLatest(C.REPOSITORY_SUMMARY_PENDING, getSummary),
     takeLatest(C.REPOSITORY_BRANCHES_LIST_PENDING, getBranches),
     takeLatest(C.REPOSITORY_STATUS_LIST_PENDING, getStatus),

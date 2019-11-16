@@ -15,7 +15,7 @@ const initialState = {
     collection: [],
   },
   branchList: [],
-  currentBranch: '',
+  currentBranch: 'master',
 };
 
 export default (state = initialState, action) => {
@@ -31,7 +31,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         fetching: false,
-        history: action.payload,
+        history: payload,
       };
     case C.REPOSITORY_FILES_PENDING:
       return {
@@ -42,7 +42,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         fetching: false,
-        files: action.payload,
+        files: payload,
       };
     case C.REPOSITORY_SUMMARY_PENDING:
       return {
@@ -53,7 +53,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         fetching: false,
-        summary: action.payload,
+        summary: payload,
       };
 
     case C.REPOSITORY_BRANCHES_LIST_PENDING:
@@ -65,7 +65,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         fetching: false,
-        branchList: action.payload,
+        branchList: payload,
       };
     case C.REPOSITORY_STATUS_LIST_PENDING:
       return {
@@ -86,7 +86,7 @@ export default (state = initialState, action) => {
     case C.REPOSITORY_READ_FILE_FULLFILLED:
       return {
         ...state,
-        fileContent: action.payload,
+        fileContent: payload,
       };
     case createBranch.SUCCESS:
       return {
@@ -96,6 +96,11 @@ export default (state = initialState, action) => {
       };
     case createBranch.FAILURE:
       return state;
+    case C.UPDATE_CURRENT_BRANCH:
+      return {
+        ...state,
+        currentBranch: action.branch,
+      };
     default:
       return state;
   }
