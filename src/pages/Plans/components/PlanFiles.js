@@ -1,9 +1,9 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { object, bool, func } from 'prop-types';
+import { object } from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
-import { triggerFiles, triggerBranchList, triggerStatus, createBranch } from 'actions/repository';
+import { createBranch, treeList, getBranches } from 'actions/repository';
 import { triggerFileAddition, triggerFileDeletion } from 'actions/plans';
 import {
   Table,
@@ -82,9 +82,6 @@ const columns = (deleteFunction, currentPlan) => [
 class PlanFiles extends PureComponent {
   static propTypes = {
     plan: object,
-    fetching: bool,
-    triggerFiles: func,
-    triggerBranchList: func,
   };
 
   state = {
@@ -94,17 +91,17 @@ class PlanFiles extends PureComponent {
   };
 
   componentDidMount() {
-    const { plan, triggerBranchList, triggerFiles } = this.props;
+    const { plan, getBranches, treeList } = this.props;
 
     if (plan.repoName) {
-      triggerFiles({ repoName: plan.repoName, branch: 'master' });
-      triggerBranchList({ repoName: plan.repoName });
+      treeList({ repoName: plan.repoName, branch: 'master' });
+      getBranches({ repoName: plan.repoName });
     }
   }
 
   onDraftChange = ({ key: selectedBranch }) => {
-    const { plan, triggerFiles } = this.props;
-    triggerFiles({ repoName: plan.repoName, branch: selectedBranch });
+    const { plan, treeList } = this.props;
+    treeList({ repoName: plan.repoName, branch: selectedBranch });
   }
 
   get makeBranchList() {
@@ -244,19 +241,22 @@ class PlanFiles extends PureComponent {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    triggerFiles,
-    triggerBranchList,
     triggerFileAddition,
     triggerFileDeletion,
-    triggerStatus,
     createBranch, 
+    treeList,
+    getBranches,
   }, dispatch);
 }
 
-function mapStateToProps({ repository: { files, fetching, branchList, currentBranch } }) {
+function mapStateToProps({ 
+  repository: { tree: { files, fetching }, 
+  branches: { fetching: branchFetching, branchList, currentBranch } } 
+}) {
   return {
     repoFiles: files,
     fetching,
+    branchFetching,
     branchList,
     currentBranch,
   };

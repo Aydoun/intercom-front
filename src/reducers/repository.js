@@ -1,10 +1,14 @@
 import * as C from 'constants/repository';
-import { createBranch } from 'actions/repository';
+import * as A from 'actions/repository';
 
 const initialState = {
   fetching: false,
   history: [],
-  files: [],
+  tree: {
+    fetching: false,
+    files: [],
+    error: null,
+  },
   fileContent: [],
   summary: {
     fetching: false,
@@ -14,73 +18,64 @@ const initialState = {
     fetching: false,
     collection: [],
   },
-  branchList: [],
-  currentBranch: 'master',
+  branches: {
+    branchList: [],
+    fetching: false,
+    error: null,
+    currentBranch: 'master',
+  },
 };
 
 export default (state = initialState, action) => {
   const { payload } = action;
   
   switch (action.type) {
-    case C.REPOSITORY_HISTORY_PENDING:
+    case A.treeList.TRIGGER:
       return {
         ...state,
-        fetching: true,
-      };
-    case C.REPOSITORY_HISTORY_FULLFILLED:
-      return {
-        ...state,
-        fetching: false,
-        history: payload,
-      };
-    case C.REPOSITORY_FILES_PENDING:
-      return {
-        ...state,
-        fetching: true,
-      };
-    case C.REPOSITORY_FILES_FULLFILLED:
-      return {
-        ...state,
-        fetching: false,
-        files: payload,
-      };
-    case C.REPOSITORY_SUMMARY_PENDING:
-      return {
-        ...state,
-        fetching: true,
-      };
-    case C.REPOSITORY_SUMMARY_FULLFILLED:
-      return {
-        ...state,
-        fetching: false,
-        summary: payload,
-      };
-
-    case C.REPOSITORY_BRANCHES_LIST_PENDING:
-      return {
-        ...state,
-        fetching: true,
-      };
-    case C.REPOSITORY_BRANCHES_LIST_FULLFILLED:
-      return {
-        ...state,
-        fetching: false,
-        branchList: payload,
-      };
-    case C.REPOSITORY_STATUS_LIST_PENDING:
-      return {
-        ...state,
-        status: {
+        tree: {
+          ...initialState.tree,
           fetching: true,
-          collection: [],
         },
       };
-    case C.REPOSITORY_STATUS_LIST_FULLFILLED:
+    case A.treeList.SUCCESS:
       return {
         ...state,
-        status: {
-          fetching: false,
-          collection: action.data,
+        tree: {
+          ...initialState.tree,
+          files: payload,
+        },
+      };
+    case A.treeList.FAILURE:
+      return {
+        ...state,
+        tree: {
+          ...initialState.tree,
+          error: true,
+        },
+      };
+    case A.getBranches.TRIGGER:
+      return {
+        ...state,
+        branches: {
+          ...initialState.branches,
+          fetching: true,
+        },
+      };
+    case A.getBranches.SUCCESS:
+      return {
+        ...state,
+        branches: {
+          ...initialState.branches,
+          branchList: payload,
+        },
+      };
+    case A.getBranches.FAILURE:
+      return {
+        ...state,
+        branches: {
+          ...initialState.branches,
+          error: true,
         },
       };
     case C.REPOSITORY_READ_FILE_FULLFILLED:
@@ -88,18 +83,21 @@ export default (state = initialState, action) => {
         ...state,
         fileContent: payload,
       };
-    case createBranch.SUCCESS:
+    case A.createBranch.SUCCESS:
       return {
         ...state,
         branchList: state.branchList.concat(payload.branchName),
         currentBranch: payload.branchName,
       };
-    case createBranch.FAILURE:
+    case A.createBranch.FAILURE:
       return state;
     case C.UPDATE_CURRENT_BRANCH:
       return {
         ...state,
-        currentBranch: action.branch,
+        branches: {
+          ...state.branches,
+          currentBranch: action.branch,
+        },
       };
     default:
       return state;
